@@ -3,7 +3,7 @@ This repo contains everything from architectural design to routing. It covers cr
 # Table of Content
 [Tool Installation and setup](#Tool-Installation-and-setup)
 
-##Tool-Installation-and-setup
+## Tool Installation and setup
 
  <details>
 <summary> Yosys </summary>
