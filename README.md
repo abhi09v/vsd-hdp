@@ -21,5 +21,6 @@ $ sudo apt-get install build-essential clang bison flex \
 $ make 
 $ sudo make install
 ```
+  <img src="master/yosys.png">
  </details>
 
