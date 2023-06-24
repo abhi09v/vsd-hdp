@@ -6,6 +6,7 @@ This repo contains everything from architectural design to routing. It covers cr
 ##Day 0
 
 #tool installation 
+ <details>
 <summary> Yosys </summary>
 
 Instatllation of RTL synthesis tool
@@ -20,4 +21,4 @@ $ sudo apt-get install build-essential clang bison flex \
 $ make 
 $ sudo make install
 ```
-
+ </details>
