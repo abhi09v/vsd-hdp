@@ -1,8 +1,8 @@
 # VSD-Hardware Design 
 This repo contains everything from architectural design to routing. It covers critical steps such as logic synthesis, post-synthesis STA analysis, floor-planning, placement, clock tree synthesis (CTS), and routing.
 # Table of Content
-   -[Tool Installation and setup](#Tool-Installation-and-setup)
-      -[Yosys](#Yosys)
+   - [Tool Installation and setup](#Tool-Installation-and-setup)
+      - [Yosys](#Yosys)
 ## Tool Installation and setup
 
  <details>
