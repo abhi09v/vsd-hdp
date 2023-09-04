@@ -10,9 +10,9 @@ This repo contains everything from architectural design to routing. It covers cr
       - [Yosys](#Yosys)
       - [opensta](#opensta)
       - [iverilog](#iverilog)
-     - [gtkwave](#gtkwave)
+      - [gtkwave](#gtkwave)
       - [magic](#magic)
-    - [ngspice](#ngspice)
+      - [ngspice](#ngspice)
         
 ## Tool Installation and setup
  <details>
