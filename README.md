@@ -12,7 +12,7 @@ This repo contains everything from architectural design to routing. It covers cr
         
 ## Tool Installation and setup
  <details>
-<summary> Yosys </summary>
+<summary> ##Yosys </summary>
 
 Instatllation of OpenSource RTL synthesis tool- Yosys
 ```bash
