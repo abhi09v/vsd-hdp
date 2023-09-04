@@ -113,7 +113,7 @@ sudo apt-get install libncurses-dev
 sudo apt-get install ngspice
  ```
 ![ngspice](https://github.com/abhi09v/vsd-hdp/assets/120673607/79b75e3a-1b85-4f7b-acfe-e5ed6459e1ab)
-
+</details>
 ## Day 1
 
 <details>
