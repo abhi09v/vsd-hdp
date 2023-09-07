@@ -262,7 +262,7 @@ yosys> abc -liberty <path to sky130_fd_sc_hd__tt_025C_1v80.lib>
 yosys> show <name: sub_module1>
 ```
 	
-Below is the screenshot of the generated design:
+/*Below is the screenshot of the generated design:
 		
 <img width="418" alt="synth_submodule1" src="https://github.com/mariamrakka/vsd-hdp/assets/49097440/2be34dc4-2bab-496e-8683-8d2bb1f90ed2">
 		
@@ -414,3 +414,4 @@ Below is the screenshot of the netlist:
 
 
 </details>
+*/
