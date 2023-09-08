@@ -114,6 +114,7 @@ sudo apt-get install ngspice
  ```
 ![ngspice](https://github.com/abhi09v/vsd-hdp/assets/120673607/79b75e3a-1b85-4f7b-acfe-e5ed6459e1ab)
 </details>
+
 ## Day 1
 
 <details>
@@ -239,7 +240,8 @@ I used the following additional commands to synthesize and view the design of th
 ```bash
 yosys> flatten
 yosys> write_verilog -noattr <name: multiple_modules_flat.v>
-```	
+```
+	
 Below is the screenshot of the generated flattened design:
 		
 ![Screenshot from 2023-06-25 13-17-45](https://github.com/abhi09v/vsd-hdp/assets/120673607/e5aa3469-5a6d-4776-a6ad-689ad784aa61)
@@ -248,6 +250,11 @@ Below is the screenshot of the generated flattened netlist:
 		
 ![Screenshot from 2023-06-25 12-19-15](https://github.com/abhi09v/vsd-hdp/assets/120673607/c8b5d3d2-d232-46f0-8636-affd43c07adc)
 
+![Screenshot from 2023-06-26 10-00-21](https://github.com/abhi09v/vsd-hdp/assets/120673607/f1484766-346b-40d4-9381-01786f101f21)
+
+Below is the screenshot of Netlist:
+
+![Screenshot from 2023-06-25 12-00-04](https://github.com/abhi09v/vsd-hdp/assets/120673607/4192f723-b1ad-48ff-a77c-c40b808786e5)
 </details>
 <details>
  <summary> Synthesis: sub_module1 level </summary>
@@ -262,10 +269,10 @@ yosys> abc -liberty <path to sky130_fd_sc_hd__tt_025C_1v80.lib>
 yosys> show <name: sub_module1>
 ```
 	
-/*Below is the screenshot of the generated design:
+Below is the screenshot of the generated design:
 		
-<img width="418" alt="synth_submodule1" src="https://github.com/mariamrakka/vsd-hdp/assets/49097440/2be34dc4-2bab-496e-8683-8d2bb1f90ed2">
-		
+![Screenshot from 2023-06-26 10-50-40](https://github.com/abhi09v/vsd-hdp/assets/120673607/ab251297-f464-4756-a521-864b2d7f5ae9)
+	
 </details>
 <details>
 <summary> Simulation: dff with asynchronous reset </summary>
@@ -279,10 +286,13 @@ gtkwave <name vcd file: tb_dff_asyncres.vcd>
 ```	
 	
 Below is the screenshot of the simulation:
+
+![Screenshot from 2023-06-26 16-19-28](https://github.com/abhi09v/vsd-hdp/assets/120673607/d529413c-cd3c-49dd-bb06-dbe072a364ba)
 	
-<img width="466" alt="asyncres" src="https://github.com/mariamrakka/vsd-hdp/assets/49097440/9ac7b0c9-a88f-459e-8b86-7613d645ef6a">
-	
+Below is the screenshot of Netlist:
+![Screenshot from 2023-06-26 16-58-59](https://github.com/abhi09v/vsd-hdp/assets/120673607/7150c2a6-f9ad-42f5-b975-04c92ac1aedb)		
 </details>
+
 <details>
 <summary> Simulation: dff with asynchronous set </summary>
 I used the following commands to simulate the RTL design of the dff with asynchronous set:
