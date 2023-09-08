@@ -925,7 +925,8 @@ Below is the screenshot of the obtained simulation, and this mismatches with pre
 
 <details>
  <summary> Simulation, synthesis, and GLS: blocking_caveat.v </summary>
-Below is verilog code for blocking_caveat.v 
+Below is verilog code for blocking_caveat.v
+	
 ![Screenshot from 2023-07-08 14-38-16](https://github.com/abhi09v/vsd-hdp/assets/120673607/c7df3fb4-161d-47cf-b648-c444e15af992)
 
 I used the below commands to simulate the design of blocking_caveat.v:
