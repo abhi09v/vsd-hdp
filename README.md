@@ -224,7 +224,7 @@ Finally, I synthesized 2 designs that were special; their synthesis used optimiz
 </details>
 	
 <details>
- <summary> Synthesis: multiple_modules level </summary>
+ <summary> multiple_modules level </summary>
 		
 ```bash		
 yosys> read_liberty -lib <path to sky130_fd_sc_hd__tt_025C_1v80.lib>
@@ -267,7 +267,7 @@ Below is the screenshot of Netlist:
 
 </details>
 <details>
- <summary> Synthesis: sub_module1 level </summary>
+ <summary> sub_module1 </summary>
 		
 I used the following commands to view the synthesized design of the submodule:
 		
@@ -285,7 +285,7 @@ Below is the screenshot of the generated design:
 	
 </details>
 <details>
-<summary> Simulation: dff with asynchronous reset </summary>
+<summary> dff with asynchronous reset </summary>
 
 I used the following commands to simulate the RTL design of the dff with asynchronous reset:
 	
@@ -296,15 +296,15 @@ gtkwave <name vcd file: tb_dff_asyncres.vcd>
 ```	
 	
 Below is the screenshot of the simulation:
+![Screenshot from 2023-06-26 16-28-00](https://github.com/abhi09v/vsd-hdp/assets/120673607/9de791eb-d894-4468-9731-4245dd6ef8ad)
 
-![Screenshot from 2023-06-26 16-28-00](https://github.com/abhi09v/vsd-hdp/assets/120673607/2006230e-2b79-4de5-aa9c-3226630e6a79)
 	
-Below is the screenshot of design Netlist:
+Below is the screenshot of Syntesized Design :
 ![Screenshot from 2023-06-26 16-58-59](https://github.com/abhi09v/vsd-hdp/assets/120673607/7150c2a6-f9ad-42f5-b975-04c92ac1aedb)		
 </details>
 
 <details>
-<summary> Simulation: dff with asynchronous set </summary>
+<summary> dff with asynchronous set </summary>
 I used the following commands to simulate the RTL design of the dff with asynchronous set:
 	
 ```bash	
