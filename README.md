@@ -819,7 +819,7 @@ Below is the screenshot of the obtained optimized design, and 3 flipflops are us
 
 -Note that the synthesis will yield same circuit with blocking and non-blockin; it will yield what would be obtained as if the statements where written in non-blocking format, so in case they weren't written as such a mismatch will occur with the simulation), and non-standard verilog coding.
 	
-	
+</details>	
 <details>
  <summary> Simulation, synthesis, and GLS: ternary_operator_mux.v </summary>
 	
