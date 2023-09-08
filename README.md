@@ -8,8 +8,12 @@ This repo contains everything from architectural design to routing. It covers cr
 # Table of Content
    - [Tool Installation and setup](#Tool-Installation-and-setup)
       - [Yosys](#Yoysys)
-   - [DAY1](#DAY1)
-        
+      - [OpenSTA](#OpenSTA)
+      - [ngspice](#ngspice)
+      - [iverilog](#iverilog)
+      - [gtkwave](#gtkwave)
+      - [magic](#magic)
+          
 ## Tool Installation and setup
  <details>
 <summary> Yosys </summary>
@@ -206,13 +210,16 @@ Finally, I synthesized 2 designs that were special; their synthesis used optimiz
  <summary> multiple module  </summary>
 
 - multiple module (multiple_modules.v)
+- 
 ![Screenshot from 2023-06-25 11-57-41](https://github.com/abhi09v/vsd-hdp/assets/120673607/32071988-8c52-4f49-992d-9998f85e7e5b)
 
 - the D-flipflop with asynchronous reset (dff_asyncres.v)
 - the D-flipflop with asynchronous set (dff_async_set.v) 
 - the D-flipflop with synchronous reset (dff_syncres.v)
+  ![Screenshot from 2023-06-26 16-42-29](https://github.com/abhi09v/vsd-hdp/assets/120673607/8d299cc7-9467-41f0-a993-66b628b2e144)
 - mult_2.v and 
-- mult_8.v 
+- mult_8.v
+  
 
 </details>
 	
@@ -250,11 +257,14 @@ Below is the screenshot of the generated flattened netlist:
 		
 ![Screenshot from 2023-06-25 12-19-15](https://github.com/abhi09v/vsd-hdp/assets/120673607/c8b5d3d2-d232-46f0-8636-affd43c07adc)
 
+Below is the screenshot of Sythesized Design:
+
 ![Screenshot from 2023-06-26 10-00-21](https://github.com/abhi09v/vsd-hdp/assets/120673607/f1484766-346b-40d4-9381-01786f101f21)
 
 Below is the screenshot of Netlist:
 
 ![Screenshot from 2023-06-25 12-00-04](https://github.com/abhi09v/vsd-hdp/assets/120673607/4192f723-b1ad-48ff-a77c-c40b808786e5)
+
 </details>
 <details>
  <summary> Synthesis: sub_module1 level </summary>
@@ -287,9 +297,9 @@ gtkwave <name vcd file: tb_dff_asyncres.vcd>
 	
 Below is the screenshot of the simulation:
 
-![Screenshot from 2023-06-26 16-19-28](https://github.com/abhi09v/vsd-hdp/assets/120673607/d529413c-cd3c-49dd-bb06-dbe072a364ba)
+![Screenshot from 2023-06-26 16-28-00](https://github.com/abhi09v/vsd-hdp/assets/120673607/2006230e-2b79-4de5-aa9c-3226630e6a79)
 	
-Below is the screenshot of Netlist:
+Below is the screenshot of design Netlist:
 ![Screenshot from 2023-06-26 16-58-59](https://github.com/abhi09v/vsd-hdp/assets/120673607/7150c2a6-f9ad-42f5-b975-04c92ac1aedb)		
 </details>
 
@@ -305,8 +315,9 @@ gtkwave <name vcd file: tb_dff_async_set.vcd>
 	
 Below is the screenshot of the simulation:
 	
-<img width="489" alt="asyncset" src="https://github.com/mariamrakka/vsd-hdp/assets/49097440/ebfebce2-d568-48dc-ac00-5d66fe78ff5e">
-
+![Screenshot from 2023-06-26 16-19-28](https://github.com/abhi09v/vsd-hdp/assets/120673607/d529413c-cd3c-49dd-bb06-dbe072a364ba)
+Below is the screenshot of Design Netlist:
+![Screenshot from 2023-06-26 17-12-30](https://github.com/abhi09v/vsd-hdp/assets/120673607/25d5b27e-8f44-42cb-a2c6-97457587ddf2)
 </details>
 <details>
 <summary> Simulation: dff with synchronous reset </summary>
