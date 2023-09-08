@@ -298,7 +298,15 @@ gtkwave <name vcd file: tb_dff_asyncres.vcd>
 Below is the screenshot of the simulation:
 ![Screenshot from 2023-06-26 16-28-00](https://github.com/abhi09v/vsd-hdp/assets/120673607/9de791eb-d894-4468-9731-4245dd6ef8ad)
 
-	
+I used the following commands to synthesize the design:
+```bash
+yosys> read_liberty -lib <path to sky130_fd_sc_hd__tt_025C_1v80.lib>
+yosys> read_verilog <name of verilog file: dff_asyncres.v>
+yosys> synth -top <name: dff_asyncres>
+yosys> dfflibmap -liberty <path to sky130_fd_sc_hd__tt_025C_1v80.lib>
+yosys> abc -liberty <path to sky130_fd_sc_hd__tt_025C_1v80.lib>
+yosys> show <name: dff_asyncres>
+```	
 Below is the screenshot of Syntesized Design :
 ![Screenshot from 2023-06-26 16-58-59](https://github.com/abhi09v/vsd-hdp/assets/120673607/7150c2a6-f9ad-42f5-b975-04c92ac1aedb)		
 </details>
@@ -314,13 +322,23 @@ gtkwave <name vcd file: tb_dff_async_set.vcd>
 ```
 	
 Below is the screenshot of the simulation:
+![Screenshot from 2023-06-26 16-32-52](https://github.com/abhi09v/vsd-hdp/assets/120673607/8b34351e-55b8-423e-bb47-406721284888)
+I used the following commands to synthesize the design:
 	
-![Screenshot from 2023-06-26 16-19-28](https://github.com/abhi09v/vsd-hdp/assets/120673607/d529413c-cd3c-49dd-bb06-dbe072a364ba)
-Below is the screenshot of Design Netlist:
+```bash
+yosys> read_liberty -lib <path to sky130_fd_sc_hd__tt_025C_1v80.lib>
+yosys> read_verilog <name of verilog file: dff_async_set.v>
+yosys> synth -top <name: dff_async_set>
+yosys> dfflibmap -liberty <path to sky130_fd_sc_hd__tt_025C_1v80.lib>
+yosys> abc -liberty <path to sky130_fd_sc_hd__tt_025C_1v80.lib>
+yosys> show <name: dff_async_set>
+```	
+Below is the screenshot of Design:
 ![Screenshot from 2023-06-26 17-12-30](https://github.com/abhi09v/vsd-hdp/assets/120673607/25d5b27e-8f44-42cb-a2c6-97457587ddf2)
 </details>
 <details>
-<summary> Simulation: dff with synchronous reset </summary>
+	
+<summary> dff with synchronous reset </summary>
 	
 I used the following commands to simulate the RTL design of the dff with synchronous reset:
 	
@@ -331,48 +349,7 @@ gtkwave <name vcd file: tb_dff_syncres.vcd>
 ```	
 	
 Below is the screenshot of the simulation:
-	
-<img width="476" alt="syncres" src="https://github.com/mariamrakka/vsd-hdp/assets/49097440/6d20f785-a07f-4eae-801d-f7dac19159b6">
-
-</details>
-<details>
- <summary> Synthesis: dff with asynchronous reset </summary>
-
-I used the following commands to synthesize the design:
-```bash
-yosys> read_liberty -lib <path to sky130_fd_sc_hd__tt_025C_1v80.lib>
-yosys> read_verilog <name of verilog file: dff_asyncres.v>
-yosys> synth -top <name: dff_asyncres>
-yosys> dfflibmap -liberty <path to sky130_fd_sc_hd__tt_025C_1v80.lib>
-yosys> abc -liberty <path to sky130_fd_sc_hd__tt_025C_1v80.lib>
-yosys> show <name: dff_asyncres>
-```
-Below is the screenshot of the synthesized design:
-	
-<img width="415" alt="asyncressynth" src="https://github.com/mariamrakka/vsd-hdp/assets/49097440/420f2db1-3c7c-44d8-98ed-be6e9ef6bc7e">
-	
-</details>
-<details>
- <summary> Synthesis: dff with asynchronous set </summary>
-
-I used the following commands to synthesize the design:
-	
-```bash
-yosys> read_liberty -lib <path to sky130_fd_sc_hd__tt_025C_1v80.lib>
-yosys> read_verilog <name of verilog file: dff_async_set.v>
-yosys> synth -top <name: dff_async_set>
-yosys> dfflibmap -liberty <path to sky130_fd_sc_hd__tt_025C_1v80.lib>
-yosys> abc -liberty <path to sky130_fd_sc_hd__tt_025C_1v80.lib>
-yosys> show <name: dff_async_set>
-```
-Below is the screenshot of the synthesized design:
-	
-<img width="415" alt="asyncsetsynth" src="https://github.com/mariamrakka/vsd-hdp/assets/49097440/bdb9efd8-3f3b-4048-81e0-7996107f5a31">
-	
-</details>
-<details>
- <summary> Synthesis: dff with synchronous reset </summary>
-	
+![Screenshot from 2023-06-26 16-19-28](https://github.com/abhi09v/vsd-hdp/assets/120673607/f0e3dc1a-a68b-4449-be90-e3239a73c6b8)
 I used the following commands to synthesize the design:
 ```bash
 yosys> read_liberty -lib <path to sky130_fd_sc_hd__tt_025C_1v80.lib>
@@ -382,13 +359,14 @@ yosys> dfflibmap -liberty <path to sky130_fd_sc_hd__tt_025C_1v80.lib>
 yosys> abc -liberty <path to sky130_fd_sc_hd__tt_025C_1v80.lib>
 yosys> show <name: dff_syncres>
 ```
-Below is the screenshot of the synthesized design:
-	
-<img width="418" alt="syncressynth" src="https://github.com/mariamrakka/vsd-hdp/assets/49097440/805a803c-c7d5-4049-9107-28852c15a4e7">
+Below is the screenshot of Syntsized Design:	
+![Screenshot from 2023-06-26 16-58-59](https://github.com/abhi09v/vsd-hdp/assets/120673607/3541c70d-b33a-4ce4-9f15-a58ee26d988c)
+
 
 </details>
+
 <details>
- <summary> Synthesis: mult_2.v </summary>
+ <summary> mult_2.v </summary>
 	
 I used the following commands to synthesize and view the design:
 	
@@ -402,13 +380,12 @@ yosys> write_verilog -noattr <name: mul2_net.v>
 ```
 	
 Below is the screenshot of the synthesized design, note that no hardware was used (no cells are synthesised) as multiplying a 3-bit input by a power of two is equivalent to shifting for output:
-	
-<img width="453" alt="mul2" src="https://github.com/mariamrakka/vsd-hdp/assets/49097440/63af05e1-945d-4a24-862c-f97fbcd45922">
+![Screenshot from 2023-06-26 20-30-55](https://github.com/abhi09v/vsd-hdp/assets/120673607/3a944269-1e6a-4347-b376-b9c8500ba346)
 	
 Below is the screenshot of the netlist:
 	
-<img width="636" alt="mul2_net" src="https://github.com/mariamrakka/vsd-hdp/assets/49097440/cd6ffe25-388b-48d4-a133-20758c730e58">
-	
+![Screenshot from 2023-06-26 20-38-41](https://github.com/abhi09v/vsd-hdp/assets/120673607/f0ce176b-1d25-424f-8bd8-aec416b879dd)
+
 
 </details>
 <details>
@@ -427,12 +404,14 @@ yosys> write_verilog -noattr <name: mult8_net.v>
 	
 Below is the screenshot of the synthesized design, note that no hardware was used (no cells are synthesised) as multiplying a 3-bit input (special case) by a nine is equivalent to replicating the input twice for output:
 	
-<img width="414" alt="mult8" src="https://github.com/mariamrakka/vsd-hdp/assets/49097440/ea3937da-6fe9-45b6-a90d-1af514d175ec">
+![Screenshot from 2023-06-26 20-46-48](https://github.com/abhi09v/vsd-hdp/assets/120673607/3557ef14-9c95-48af-a914-dfb1a0a5de02)
+
 	
 Below is the screenshot of the netlist:
 	
-<img width="645" alt="mult8_net" src="https://github.com/mariamrakka/vsd-hdp/assets/49097440/9aec2099-3427-4b6f-9d6a-694f846d69bf">
+![Screenshot from 2023-06-26 20-48-08](https://github.com/abhi09v/vsd-hdp/assets/120673607/bde7970a-6718-4f3b-a54b-fb1a90ef6ce7)
+
 
 
 </details>
-*/
+
