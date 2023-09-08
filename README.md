@@ -419,11 +419,17 @@ Below is the screenshot of the netlist:
  <summary> Summary </summary>
 
 I have synthesized designs with optimizations. Combinational logic optimizations include 
+
 1-) constant propagation (when the combination is just propagating a constant) 
-2-) boolean logic optimization (when boolean rules are used to simplify the expression). Sequential logic optimizations include    
+
+2-) boolean logic optimization (when boolean rules are used to simplify the expression). Sequential logic optimizations include   
+
                   a) sequential constant propagation (when constant is propagated with clock involved), 
+		  
                   b) state optimization (when unused states are optimized), 
+		  
                   c) retiming (when logic is split to decrease timing of the different logic portions and increase frequency), 
+		  
                   d) sequential logic cloning (when physical aware synthesis is done to optimize the floop plan)
 
 </details>	
@@ -793,4 +799,182 @@ Below is the screenshot of the obtained optimized design, and 3 flipflops are us
 ![image](https://github.com/abhi09v/vsd-hdp/assets/120673607/60fc2e37-be77-4edc-87bf-939a3cb1f43e)
 	
 </details>
+
+
+
+## Day 4
+
+<details>
+ <summary> Summary </summary>
+
+ GLS is when the testbench is run with the netlist as design under test to ensure there are no synthesis and simulation mismatches, and it is important as it 
+
+1-) verifies the logical correctness of the post-synthesis design  
+
+2-) ensures the timing of design is met. Synthesis and simulation mismatches can happen due to a lot of reasons including 
+- missing sensitivity list (some signal changes are not captured by the circuit because they are missing from the sensitivity list), 
+- blocking vs non-blocking assignments (inside an always block, 
+- "=" statements inside it are blocking meaning they are executed in order they are written, 
+- assignments (<=) on the other hand are non-blocking so they are executed in parallel => non-blocking should be used with sequential circuits. 
+
+-Note that the synthesis will yield same circuit with blocking and non-blockin; it will yield what would be obtained as if the statements where written in non-blocking format, so in case they weren't written as such a mismatch will occur with the simulation), and non-standard verilog coding.
+	
+	
+<details>
+ <summary> Simulation, synthesis, and GLS: ternary_operator_mux.v </summary>
+	
+Below is Verilog Code and testbench for ternary_mux.v
+![Screenshot from 2023-07-08 12-57-41](https://github.com/abhi09v/vsd-hdp/assets/120673607/07aa2d18-080d-4a7c-90f4-8e0ae7bd82ea)
+
+Used the below commands to simulate the design of ternary_operator_mux.v:
+	
+```bash
+iverilog <name verilog: ternary_operator_mux.v> <name testbench: tb_ternary_operator_mux.v>
+./a.out
+gtkwave tb_ternary_operator_mux.vdc
+```	
+
+Below is the screenshot of the obtained simulation, we can see that when sel is high y follows i1, and when sel is low y follows i0:
+
+![ternary](https://github.com/abhi09v/vsd-hdp/assets/120673607/88f27d11-cd49-48d8-a3c9-0ad5f2205b85)
+
+
+I used the below commands to synthesize the design into a netlist and view the synthesized design of ternary_operator_mux.v:
+	
+```bash
+yosys> read_liberty -lib <path to sky130_fd_sc_hd__tt_025C_1v80.lib>
+yosys> read_verilog <name of verilog file: ternary_operator_mux.v>
+yosys> synth -top <name: ternary_operator_mux>
+yosys> abc -liberty <path to sky130_fd_sc_hd__tt_025C_1v80.lib>
+yosys> write_verilog -noattr <name of netlist: ternary_operator_mux_net.v>
+yosys> show
+```
+	
+Below is the screenshot of the obtained design:
+
+![Screenshot from 2023-07-08 13-05-11](https://github.com/abhi09v/vsd-hdp/assets/120673607/31742b73-6b5e-4c6d-9587-f6c4d278deaa)
+
+
+I used the below commands to carry out GLS of ternary_operator_mux.v:
+	
+```bash
+iverilog <path to verilog model: ../mylib/verilog_model/primitives.v> <path to sky130_fd_sc_hd__tt_025C_1v80.lib: ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib> <name netlist: ternary_operator_mux_net.v> <name testbench: tb_ternary_operator_mux.v>
+./a.out
+gtkwave tb_ternary_operator_mux.vdc
+```	
+	
+Below is the screenshot of the obtained simulation, and this matches with pre-synthesis simulation:
+	
+![Screenshot from 2023-07-08 13-55-20](https://github.com/abhi09v/vsd-hdp/assets/120673607/9ffc371f-63fa-4996-adbb-2723d0c1d962)
+	
+</details>
+
+<details>
+ <summary> Simulation, synthesis, and GLS: bad_mux.v </summary>
+
+I used the below commands to simulate the design of bad_mux.v:
+	
+```bash
+iverilog <name verilog: bad_mux.v> <name testbench: tb_bad_mux.v>
+./a.out
+gtkwave tb_bad_mux.vdc
+```	
+
+Below is the screenshot of the obtained simulation, we can see that when inputs change, y is not evaluated which is wrong behavior:
+
+![Screenshot from 2023-07-08 14-00-35](https://github.com/abhi09v/vsd-hdp/assets/120673607/a8b265de-af24-439b-acfd-2cb9f7e2c8e3)
+
+
+
+I used the below commands to synthesize the design into a netlist and view the synthesized design of bad_mux.v:
+	
+```bash
+yosys> read_liberty -lib <path to sky130_fd_sc_hd__tt_025C_1v80.lib>
+yosys> read_verilog <name of verilog file: bad_mux.v>
+yosys> synth -top <name: bad_mux>
+yosys> abc -liberty <path to sky130_fd_sc_hd__tt_025C_1v80.lib>
+yosys> write_verilog -noattr <name of netlist: bad_mux_net.v>
+yosys> show
+```
+	
+Below is the screenshot of the obtained design:
+
+![Screenshot from 2023-07-08 14-04-13](https://github.com/abhi09v/vsd-hdp/assets/120673607/002f3031-9c6d-43aa-ab49-4e0611c5e17d)
+
+
+	
+Below is the screenshot of the obtained netlist:
+
+![Screenshot from 2023-07-08 14-07-12](https://github.com/abhi09v/vsd-hdp/assets/120673607/c3bdd33e-e839-4bf3-b467-1d3d876428f7)
+
+	
+I used the below commands to carry out GLS of bad_mux.v:
+	
+```bash
+iverilog <path to verilog model: ../mylib/verilog_model/primitives.v> <path to sky130_fd_sc_hd__tt_025C_1v80.lib: ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib> <name netlist: bad_mux_net.v> <name testbench: tb_bad_mux.v>
+./a.out
+gtkwave tb_bad_mux.vdc
+```	
+	
+Below is the screenshot of the obtained simulation, and this mismatches with pre-synthesis simulation:
+	
+![Screenshot from 2023-07-08 14-22-54](https://github.com/abhi09v/vsd-hdp/assets/120673607/21577d1e-e01a-408a-9cb1-73e9abcd35f6)
+
+	
+</details>
+
+<details>
+ <summary> Simulation, synthesis, and GLS: blocking_caveat.v </summary>
+Below is verilog code for blocking_caveat.v 
+![Screenshot from 2023-07-08 14-38-16](https://github.com/abhi09v/vsd-hdp/assets/120673607/c7df3fb4-161d-47cf-b648-c444e15af992)
+
+I used the below commands to simulate the design of blocking_caveat.v:
+	
+```bash
+iverilog <name verilog: blocking_caveat.v> <name testbench: tb_blocking_caveat.v>
+./a.out
+gtkwave tb_blocking_caveat.vdc
+```	
+
+Below is the screenshot of the obtained simulation, and as we can see d is seeing the precious values, and hence it is acting as if there was a flop in the circuit which is not the case (incorrect behavior):
+
+![Screenshot from 2023-07-08 14-38-42](https://github.com/abhi09v/vsd-hdp/assets/120673607/905380a2-7a13-4d6a-b6a8-854e978d7e98)
+
+
+I used the below commands to synthesize the design into a netlist and view the synthesized design of blocking_caveat.v:
+	
+```bash
+yosys> read_liberty -lib <path to sky130_fd_sc_hd__tt_025C_1v80.lib>
+yosys> read_verilog <name of verilog file: blocking_caveat.v>
+yosys> synth -top <name: blocking_caveat>
+yosys> abc -liberty <path to sky130_fd_sc_hd__tt_025C_1v80.lib>
+yosys> write_verilog -noattr <name of netlist: blocking_caveat_net.v>
+yosys> show
+```
+	
+Below is the screenshot of the obtained design:
+
+![Screenshot from 2023-07-08 14-42-29](https://github.com/abhi09v/vsd-hdp/assets/120673607/13f451ea-224d-4d99-b462-fc77e8959a83)
+
+	
+Below is the screenshot of the obtained netlist:
+
+![Screenshot from 2023-07-08 14-44-54](https://github.com/abhi09v/vsd-hdp/assets/120673607/c47912d2-c346-4ba8-b588-4fc55de1f686)
+
+
+I used the below commands to carry out GLS of blocking_caveat.v:
+	
+```bash
+iverilog <path to verilog model: ../mylib/verilog_model/primitives.v> <path to verilog model: ../mylib/verilog_model/sky130_fd_sc_hd.v> <name netlist: blocking_caveat_net.v> <name testbench: tb_blocking_caveat.v>
+./a.out
+gtkwave tb_blocking_caveat.vdc
+```	
+	
+Below is the screenshot of the obtained simulation, and this mismatches with pre-synthesis simulation due to blocking statement:
+	
+![Screenshot from 2023-07-08 14-47-18](https://github.com/abhi09v/vsd-hdp/assets/120673607/b86b1719-dd19-4d68-8b4a-921b12ead186)
+
+	
+</details>
+
 
