@@ -979,3 +979,391 @@ Below is the screenshot of the obtained simulation, and this mismatches with pre
 </details>
 
 
+## Day 5
+	
+<details>
+ <summary> Summary </summary>
+
+- "if" statements are used to convey priority logic (ony one portion can be executed), and the hardware will look like a series of muxes in hardware, but in "case" statements there is no inferred priotity (sequential execution can mean multiple portions can be executed) 
+
+- Also the hardware would be a series of muxes. Inferred latches can occur if there is an incomplete "if" statement (no else), in this case the hardware will have a latch storing a previous output value. This is bad coding example unless the latch is intended (like in case of a counter). Incomplete "case" can lead to inferred latches too, and to avoid that code the "case" with a default. 
+
+- Another caveat of "case" statements is partial assignments which also creates inferred latches, and to avoid that we should assign all the outputs in all the segments of the case. In "case" statements, one must be careful that portions should not be overlapping otherwise they could be executed due to the sequential non-prioritized execution of those statement.
+
+Then I have learned about looping constructs: for loop (inside always block) and generate for loop (cannot be used inside always block). The for loop is used to evaluate expressions in blocking format (provides code efficiency as complexity of circuits increases) while the generate for loop is used to instantiate hardware (provides code efficiency when hardware instantiation increases in complexity). 
+	
+</details>
+
+	
+<details>
+ <summary> Simulation and synthesis: incomp_if.v </summary>
+Below is Verilog Code incomp_if.v:
+![Screenshot from 2023-07-08 19-09-43](https://github.com/abhi09v/vsd-hdp/assets/120673607/41ca1d22-e328-481a-9336-12167cef00b0)
+
+I used the below commands to simulate the design of incomp_if.v:
+	
+```bash
+iverilog <name verilog: incomp_if.v> <name testbench: tb_incomp_if.v>
+./a.out
+gtkwave tb_incomp_if.vdc
+```	
+
+Below is the screenshot of the obtained simulation, we can see that there is an inferred latch as output is latching to a constant value when select is not high:
+
+![Screenshot from 2023-07-08 19-01-59](https://github.com/abhi09v/vsd-hdp/assets/120673607/f035b6f8-e012-4426-9f54-7cf0c6a5e5ad)
+
+
+
+I used the below commands to view the synthesized design of incomp_if.v:
+	
+```bash
+yosys> read_liberty -lib <path to sky130_fd_sc_hd__tt_025C_1v80.lib>
+yosys> read_verilog <name of verilog file: incomp_if.v>
+yosys> synth -top <name: incomp_if>
+yosys> abc -liberty <path to sky130_fd_sc_hd__tt_025C_1v80.lib>
+yosys> show
+```
+	
+Below is the screenshot of the obtained design, and a latch is seen as was expected:
+
+![Screenshot from 2023-07-08 19-06-43](https://github.com/abhi09v/vsd-hdp/assets/120673607/95d062c0-b64b-406a-b1d6-df7f241ad73e)
+
+
+</details>
+	
+<details>
+ <summary> Simulation and synthesis: incomp_if2.v </summary>
+	
+Below is Verilog Code incomp_if.v
+![Screenshot from 2023-07-08 19-11-00](https://github.com/abhi09v/vsd-hdp/assets/120673607/5f1e7a49-1c28-4eb7-ba24-35c1064f4deb)
+
+I used the below commands to simulate the design of incomp_if2.v:
+	
+```bash
+iverilog <name verilog: incomp_if2.v> <name testbench: tb_incomp_if2.v>
+./a.out
+gtkwave tb_incomp_if2.vdc
+```	
+
+Below is the screenshot of the obtained simulation, we can see that the output latches a constant value when i0 and i2 are zero:
+
+![Screenshot from 2023-07-08 19-21-00](https://github.com/abhi09v/vsd-hdp/assets/120673607/56caa856-f666-465b-a42c-2559e72f7879)
+
+
+
+I used the below commands to view the synthesized design of incomp_if2.v:
+	
+```bash
+yosys> read_liberty -lib <path to sky130_fd_sc_hd__tt_025C_1v80.lib>
+yosys> read_verilog <name of verilog file: incomp_if2.v>
+yosys> synth -top <name: incomp_if2>
+yosys> abc -liberty <path to sky130_fd_sc_hd__tt_025C_1v80.lib>
+yosys> show
+```
+	
+Below is the screenshot of the obtained design, and we can see a latch as was expected:
+
+![Screenshot from 2023-07-08 19-22-33](https://github.com/abhi09v/vsd-hdp/assets/120673607/51abbc33-a840-4d40-aa69-e9aecefec6c9)
+
+
+</details>
+
+<details>
+ <summary> Simulation and synthesis: incomp_case.v </summary>
+Below is Verilog code for incomp_case.v, comp_case.v ,partial_case_assign.v ,bad_case.v
+![Screenshot from 2023-07-08 19-29-08](https://github.com/abhi09v/vsd-hdp/assets/120673607/be11aacc-2b6c-4a0f-8fc2-6d9d49541a32)
+
+I used the below commands to simulate the design of incomp_case.v:
+	
+```bash
+iverilog <name verilog: incomp_case.v> <name testbench: tb_incomp_case.v>
+./a.out
+gtkwave tb_incomp_case.vdc
+```	
+
+Below is the screenshot of the obtained simulation, we can see that the output latches a constant value when select has a vlaue of 2 or 3 (when sel[1] is 1):
+
+![Screenshot from 2023-07-08 19-42-33](https://github.com/abhi09v/vsd-hdp/assets/120673607/b1c5e483-c077-4fb9-ac19-99d4f803a517)
+
+
+
+I used the below commands to view the synthesized design of incomp_case.v:
+	
+```bash
+yosys> read_liberty -lib <path to sky130_fd_sc_hd__tt_025C_1v80.lib>
+yosys> read_verilog <name of verilog file: incomp_case.v>
+yosys> synth -top <name: incomp_case>
+yosys> abc -liberty <path to sky130_fd_sc_hd__tt_025C_1v80.lib>
+yosys> show
+```
+	
+Below is the screenshot of the obtained design, and we can see a latch as was expected:
+	
+![Screenshot from 2023-07-08 19-44-33](https://github.com/abhi09v/vsd-hdp/assets/120673607/32a5b0b3-dcf7-49b1-b91b-4d316b374079)
+
+
+</details>
+
+<details>
+ <summary> Simulation and synthesis: comp_case.v </summary>
+
+I used the below commands to simulate the design of comp_case.v:
+	
+```bash
+iverilog <name verilog: comp_case.v> <name testbench: tb_comp_case.v>
+./a.out
+gtkwave tb_comp_case.vdc
+```	
+
+Below is the screenshot of the obtained simulation, we can see that the output follows i2 when select has a value of 2 or 3 (when sel[1] is 1):
+
+![Screenshot from 2023-07-09 21-07-49](https://github.com/abhi09v/vsd-hdp/assets/120673607/285537b2-6af2-4838-a886-08c00387f31e)
+
+
+I used the below commands to view the synthesized design of comp_case.v:
+	
+```bash
+yosys> read_liberty -lib <path to sky130_fd_sc_hd__tt_025C_1v80.lib>
+yosys> read_verilog <name of verilog file: comp_case.v>
+yosys> synth -top <name: comp_case>
+yosys> abc -liberty <path to sky130_fd_sc_hd__tt_025C_1v80.lib>
+yosys> show
+```
+	
+Below is the screenshot of the obtained design, and we do not see a latch as was expected:
+	
+![Screenshot from 2023-07-09 21-10-33](https://github.com/abhi09v/vsd-hdp/assets/120673607/9aa87d07-2442-4f22-b7f6-231eeba5d50d)
+
+
+</details>
+	
+<details>
+ <summary> Synthesis: partial_case_assign.v </summary>
+
+I used the below commands to view the synthesized design of partial_case_assign.v:
+	
+```bash
+yosys> read_liberty -lib <path to sky130_fd_sc_hd__tt_025C_1v80.lib>
+yosys> read_verilog <name of verilog file: partial_case_assign.v>
+yosys> synth -top <name: partial_case_assign>
+yosys> abc -liberty <path to sky130_fd_sc_hd__tt_025C_1v80.lib>
+yosys> show
+```
+	
+Below is the screenshot of the obtained design, and we see one latch for x output as was expected, and the boolean expressions of x and y that were expected are also inferred by the design obtained:
+
+ ![Screenshot from 2023-07-10 12-02-42](https://github.com/abhi09v/vsd-hdp/assets/120673607/a475f254-0aa5-4c81-9811-92bfc57f36ff)
+
+
+</details>
+
+<details>
+ <summary> Simulation, synthesis, and GLS: bad_case.v </summary>
+
+I used the below commands to simulate the design of bad_case.v:
+	
+```bash
+iverilog <name verilog: bad_case.v> <name testbench: tb_bad_case.v>
+./a.out
+gtkwave tb_bad_case.vdc
+```	
+
+Below is the screenshot of the obtained simulation, we can see that when sel is "11", the simulator is getting confused and output y is taking a constant "1" value:
+	
+![Screenshot from 2023-07-10 12-05-11](https://github.com/abhi09v/vsd-hdp/assets/120673607/b0d28993-5f45-4fee-8680-6a45d866516f)
+
+
+I used the below commands to synthesize and view the synthesized design of bad_case.v:
+	
+```bash
+yosys> read_liberty -lib <path to sky130_fd_sc_hd__tt_025C_1v80.lib>
+yosys> read_verilog <name of verilog file: bad_case.v>
+yosys> synth -top <name: bad_case>
+yosys> abc -liberty <path to sky130_fd_sc_hd__tt_025C_1v80.lib>
+yosys> write_verilog -noattr bad_case_net.v
+yosys> show
+```
+	
+Below is the screenshot of the obtained design, and there is no inferred latch:
+	
+![Screenshot from 2023-07-10 12-08-08](https://github.com/abhi09v/vsd-hdp/assets/120673607/95aa01e9-f0b0-43dc-970e-ffb0ea1cbc9c)
+
+	
+I used the below commands to carry out GLS of bad_case.v:
+	
+```bash
+iverilog <path to verilog model: ../mylib/verilog_model/primitives.v> <path to verilog model: ../mylib/verilog_model/sky130_fd_sc_hd.v> <name netlist: bad_case_net.v> <name testbench: tb_bad_case.v>
+./a.out
+gtkwave tb_bad_case.vdc
+```	
+	
+Below is the screenshot of the obtained simulation, and this mismatches with pre-synthesis simulation. When sel is "11", y takes value of i3 and no latching happens here:
+	
+![Screenshot from 2023-07-10 12-05-11](https://github.com/abhi09v/vsd-hdp/assets/120673607/05b86cca-d02b-461f-af76-bde5cc459283)
+
+
+</details>
+
+<details>
+ <summary> Simulation, synthesis, and GLS: mux_generate.v </summary>
+
+I used the below commands to simulate the design of mux_generate.v:
+	
+```bash
+iverilog <name verilog: mux_generate.v> <name testbench: tb_mux_generate.v>
+./a.out
+gtkwave tb_mux_generate.vdc
+```	
+
+Below is the screenshot of the obtained simulation, we can see it's a 4:1 mux functionality:
+	
+![Screenshot from 2023-07-10 19-20-58](https://github.com/abhi09v/vsd-hdp/assets/120673607/845691d8-80ea-4d88-83f5-2b7f54d9f231)
+
+
+I used the below commands to synthesize and view the synthesized design of mux_generate.v:
+	
+```bash
+yosys> read_liberty -lib <path to sky130_fd_sc_hd__tt_025C_1v80.lib>
+yosys> read_verilog <name of verilog file: mux_generate.v>
+yosys> synth -top <name: mux_generate>
+yosys> abc -liberty <path to sky130_fd_sc_hd__tt_025C_1v80.lib>
+yosys> write_verilog -noattr mux_generate_net.v
+yosys> show
+```
+	
+Below is the screenshot of the obtained design, and it is a 4:1 mux:
+	
+
+<img width="477" alt="mux_generate" src="https://github.com/mariamrakka/vsd-hdp/assets/49097440/7088fd71-6d8c-4ca1-b7dd-de5aff78fa12">
+
+I used the below commands to carry out GLS of mux_generate.v:
+	
+```bash
+iverilog <path to verilog model: ../mylib/verilog_model/primitives.v> <path to verilog model: ../mylib/verilog_model/sky130_fd_sc_hd.v> <name netlist: mux_generate_net.v> <name testbench: tb_mux_generate.v>
+./a.out
+gtkwave tb_mux_generate.vdc
+```	
+	
+Below is the screenshot of the obtained simulation, and this matches with pre-synthesis simulation:
+
+![Screenshot from 2023-07-10 19-22-42](https://github.com/abhi09v/vsd-hdp/assets/120673607/6dd1282d-95cb-4bc1-9267-d0e7550f2d7d)
+
+
+</details>
+	
+<details>
+ <summary> Simulation: demux_case.v </summary>
+
+I used the below commands to simulate the design of demux_case.v:
+	
+```bash
+iverilog <name verilog: demux_case.v> <name testbench: tb_demux_case.v>
+./a.out
+gtkwave tb_demux_case.vdc
+```	
+
+Below is the screenshot of the obtained simulation, we can see it's a 1:8 demux functionality:
+	
+![Screenshot from 2023-07-10 19-27-28](https://github.com/abhi09v/vsd-hdp/assets/120673607/54b0ae38-7c1b-4a6e-813b-363122e544c5)
+
+
+
+</details>
+	
+<details>
+ <summary> Simulation, synthesis, and GLS: demux_generate.v </summary>
+
+I used the below commands to simulate the design of demux_generate.v:
+	
+```bash
+iverilog <name verilog: demux_generate.v> <name testbench: tb_demux_generate.v>
+./a.out
+gtkwave tb_demux_generate.vdc
+```	
+
+Below is the screenshot of the obtained simulation, we can see it's a 1:8 demux functionality (same as demux_case.v):
+	
+![Screenshot from 2023-07-10 19-30-43](https://github.com/abhi09v/vsd-hdp/assets/120673607/0ec605c2-3f5c-4c65-9f86-39d9b3ec236d)
+
+
+
+I used the below commands to synthesize and view the synthesized design of demux_generate.v:
+	
+```bash
+yosys> read_liberty -lib <path to sky130_fd_sc_hd__tt_025C_1v80.lib>
+yosys> read_verilog <name of verilog file: demux_generate.v>
+yosys> synth -top <name: demux_generate>
+yosys> abc -liberty <path to sky130_fd_sc_hd__tt_025C_1v80.lib>
+yosys> write_verilog -noattr demux_generate_net.v
+yosys> show
+```
+	
+Below is the screenshot of the obtained design, and it is a 1:8 demux:
+	
+![Screenshot from 2023-07-10 19-34-55](https://github.com/abhi09v/vsd-hdp/assets/120673607/9f0e4996-cdb2-40ea-b86a-bbe5d6d9a3b2)
+
+
+
+I used the below commands to carry out GLS of demux_generate.v:
+	
+```bash
+iverilog <path to verilog model: ../mylib/verilog_model/primitives.v> <path to verilog model: ../mylib/verilog_model/sky130_fd_sc_hd.v> <name netlist: demux_generate_net.v> <name testbench: tb_demux_generate.v>
+./a.out
+gtkwave tb_demux_generate.vdc
+```	
+	
+Below is the screenshot of the obtained simulation, and this matches with pre-synthesis simulation:
+
+![Screenshot from 2023-07-10 19-36-57](https://github.com/abhi09v/vsd-hdp/assets/120673607/fc7fe91e-cc71-475b-807b-a4ac66eaaf27)
+
+
+
+</details>
+	
+<details>
+ <summary> Simulation, synthesis, and GLS: rca.v </summary>
+
+I used the below commands to simulate the design of rca.v:
+	
+```bash
+iverilog <name verilog: rca.v> <name verilog: fa.v> <name testbench: tb_rca.v>
+./a.out
+gtkwave tb_rca.vdc
+```	
+
+Below is the screenshot of the obtained simulation, we can see it's an 8-bit RCA functionality:
+	
+![Screenshot from 2023-07-10 19-44-58](https://github.com/abhi09v/vsd-hdp/assets/120673607/e8a57dcc-7ecf-4038-b361-4003579a0125)
+
+
+I used the below commands to synthesize and view the synthesized design of rca.v:
+	
+```bash
+yosys> read_liberty -lib <path to sky130_fd_sc_hd__tt_025C_1v80.lib>
+yosys> read_verilog <name of verilog file: rca.v>
+yosys> read_verilog <name of verilog file: fa.v>
+yosys> synth -top <name: rca>
+yosys> abc -liberty <path to sky130_fd_sc_hd__tt_025C_1v80.lib>
+yosys> write_verilog -noattr rca_net.v
+yosys> show
+```
+	
+Below is the screenshot of the obtained design, and it is an 8-bit RCA:
+
+![image](https://github.com/abhi09v/vsd-hdp/assets/120673607/13e97645-a0c6-40d2-98bf-9e4ccd5edc1f)
+
+
+I used the below commands to carry out GLS of rca.v:
+	
+```bash
+iverilog <path to verilog model: ../mylib/verilog_model/primitives.v> <path to verilog model: ../mylib/verilog_model/sky130_fd_sc_hd.v> <name netlist: rca_net.v> <name testbench: tb_rca.v>
+./a.out
+gtkwave tb_rca.vdc
+```	
+	
+Below is the screenshot of the obtained simulation, and this matches with pre-synthesis simulation:
+
+![Screenshot from 2023-07-10 19-55-02](https://github.com/abhi09v/vsd-hdp/assets/120673607/af48f0ac-0bd0-42e3-9e2e-ad883d56e855)
+
+</details>
+	
