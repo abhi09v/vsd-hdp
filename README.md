@@ -209,6 +209,7 @@ Finally, I synthesized 2 designs that were special; their synthesis used optimiz
 - the D-flipflop with asynchronous reset (dff_asyncres.v)
 - the D-flipflop with asynchronous set (dff_async_set.v) 
 - the D-flipflop with synchronous reset (dff_syncres.v)
+- 
   ![Screenshot from 2023-06-26 16-42-29](https://github.com/abhi09v/vsd-hdp/assets/120673607/8d299cc7-9467-41f0-a993-66b628b2e144)
 - mult_2.v and 
 - mult_8.v
@@ -228,6 +229,7 @@ yosys> show <name: multiple_modules>
 yosys> write_verilog -noattr <name: multiple_modules_hier.v>
 ```
 Below is the screenshot of the generated hierarchical design:
+
 ![Screenshot from 2023-06-25 12-02-52](https://github.com/abhi09v/vsd-hdp/assets/120673607/c553e389-b9e8-46e3-b9ca-ba075dc29c43)		
 
 	
@@ -289,6 +291,7 @@ gtkwave <name vcd file: tb_dff_asyncres.vcd>
 ```	
 	
 Below is the screenshot of the simulation:
+
 ![Screenshot from 2023-06-26 16-28-00](https://github.com/abhi09v/vsd-hdp/assets/120673607/9de791eb-d894-4468-9731-4245dd6ef8ad)
 
 I used the following commands to synthesize the design:
@@ -301,6 +304,7 @@ yosys> abc -liberty <path to sky130_fd_sc_hd__tt_025C_1v80.lib>
 yosys> show <name: dff_asyncres>
 ```	
 Below is the screenshot of Syntesized Design :
+
 ![Screenshot from 2023-06-26 16-58-59](https://github.com/abhi09v/vsd-hdp/assets/120673607/7150c2a6-f9ad-42f5-b975-04c92ac1aedb)		
 </details>
 
@@ -315,7 +319,9 @@ gtkwave <name vcd file: tb_dff_async_set.vcd>
 ```
 	
 Below is the screenshot of the simulation:
+
 ![Screenshot from 2023-06-26 16-32-52](https://github.com/abhi09v/vsd-hdp/assets/120673607/8b34351e-55b8-423e-bb47-406721284888)
+
 I used the following commands to synthesize the design:
 	
 ```bash
@@ -327,7 +333,9 @@ yosys> abc -liberty <path to sky130_fd_sc_hd__tt_025C_1v80.lib>
 yosys> show <name: dff_async_set>
 ```	
 Below is the screenshot of Design:
+
 ![Screenshot from 2023-06-26 17-12-30](https://github.com/abhi09v/vsd-hdp/assets/120673607/25d5b27e-8f44-42cb-a2c6-97457587ddf2)
+
 </details>
 <details>
 	
@@ -342,7 +350,9 @@ gtkwave <name vcd file: tb_dff_syncres.vcd>
 ```	
 	
 Below is the screenshot of the simulation:
+
 ![Screenshot from 2023-06-26 16-19-28](https://github.com/abhi09v/vsd-hdp/assets/120673607/f0e3dc1a-a68b-4449-be90-e3239a73c6b8)
+
 I used the following commands to synthesize the design:
 ```bash
 yosys> read_liberty -lib <path to sky130_fd_sc_hd__tt_025C_1v80.lib>
@@ -353,6 +363,7 @@ yosys> abc -liberty <path to sky130_fd_sc_hd__tt_025C_1v80.lib>
 yosys> show <name: dff_syncres>
 ```
 Below is the screenshot of Syntsized Design:	
+
 ![Screenshot from 2023-06-26 16-58-59](https://github.com/abhi09v/vsd-hdp/assets/120673607/3541c70d-b33a-4ce4-9f15-a58ee26d988c)
 
 
@@ -373,6 +384,7 @@ yosys> write_verilog -noattr <name: mul2_net.v>
 ```
 	
 Below is the screenshot of the synthesized design, note that no hardware was used (no cells are synthesised) as multiplying a 3-bit input by a power of two is equivalent to shifting for output:
+
 ![Screenshot from 2023-06-26 20-30-55](https://github.com/abhi09v/vsd-hdp/assets/120673607/3a944269-1e6a-4347-b376-b9c8500ba346)
 	
 Below is the screenshot of the netlist:
