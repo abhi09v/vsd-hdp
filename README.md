@@ -203,14 +203,15 @@ Finally, I synthesized 2 designs that were special; their synthesis used optimiz
  <summary> multiple module  </summary>
 
 - multiple module (multiple_modules.v)
-- 
+
 ![Screenshot from 2023-06-25 11-57-41](https://github.com/abhi09v/vsd-hdp/assets/120673607/32071988-8c52-4f49-992d-9998f85e7e5b)
 
 - the D-flipflop with asynchronous reset (dff_asyncres.v)
 - the D-flipflop with asynchronous set (dff_async_set.v) 
 - the D-flipflop with synchronous reset (dff_syncres.v)
-- 
-  ![Screenshot from 2023-06-26 16-42-29](https://github.com/abhi09v/vsd-hdp/assets/120673607/8d299cc7-9467-41f0-a993-66b628b2e144)
+
+  ![Screenshot from 2023-06-26 16-42-29](https://github.com/abhi09v/vsd-hdp/assets/120673607/ac6f7506-e170-490a-937b-3bc411a30e46)
+
 - mult_2.v and 
 - mult_8.v
   
@@ -292,7 +293,7 @@ gtkwave <name vcd file: tb_dff_asyncres.vcd>
 	
 Below is the screenshot of the simulation:
 
-![Screenshot from 2023-06-26 16-28-00](https://github.com/abhi09v/vsd-hdp/assets/120673607/9de791eb-d894-4468-9731-4245dd6ef8ad)
+![Screenshot from 2023-06-26 16-28-00](https://github.com/abhi09v/vsd-hdp/assets/120673607/bca4193f-a005-4bbf-96f4-94172d57761e)
 
 I used the following commands to synthesize the design:
 ```bash
@@ -305,7 +306,7 @@ yosys> show <name: dff_asyncres>
 ```	
 Below is the screenshot of Syntesized Design :
 
-![Screenshot from 2023-06-26 16-58-59](https://github.com/abhi09v/vsd-hdp/assets/120673607/7150c2a6-f9ad-42f5-b975-04c92ac1aedb)		
+![Screenshot from 2023-06-26 16-58-59](https://github.com/abhi09v/vsd-hdp/assets/120673607/d10334b6-1fe6-4bc9-9536-9e329f9c7024)		
 </details>
 
 <details>
@@ -320,7 +321,7 @@ gtkwave <name vcd file: tb_dff_async_set.vcd>
 	
 Below is the screenshot of the simulation:
 
-![Screenshot from 2023-06-26 16-32-52](https://github.com/abhi09v/vsd-hdp/assets/120673607/8b34351e-55b8-423e-bb47-406721284888)
+![Screenshot from 2023-06-26 16-32-52](https://github.com/abhi09v/vsd-hdp/assets/120673607/60c924d5-d9b3-4838-860d-1446e353840c)
 
 I used the following commands to synthesize the design:
 	
@@ -334,7 +335,7 @@ yosys> show <name: dff_async_set>
 ```	
 Below is the screenshot of Design:
 
-![Screenshot from 2023-06-26 17-12-30](https://github.com/abhi09v/vsd-hdp/assets/120673607/25d5b27e-8f44-42cb-a2c6-97457587ddf2)
+![Screenshot from 2023-06-26 17-12-30](https://github.com/abhi09v/vsd-hdp/assets/120673607/68f3fdfc-b88b-4d43-a618-3cd622e2320b)
 
 </details>
 <details>
@@ -351,7 +352,8 @@ gtkwave <name vcd file: tb_dff_syncres.vcd>
 	
 Below is the screenshot of the simulation:
 
-![Screenshot from 2023-06-26 16-19-28](https://github.com/abhi09v/vsd-hdp/assets/120673607/f0e3dc1a-a68b-4449-be90-e3239a73c6b8)
+![Screenshot from 2023-06-26 16-19-28](https://github.com/abhi09v/vsd-hdp/assets/120673607/5ce0f631-d45f-4898-90a2-52d2b2fee2af)
+
 
 I used the following commands to synthesize the design:
 ```bash
@@ -364,7 +366,7 @@ yosys> show <name: dff_syncres>
 ```
 Below is the screenshot of Syntsized Design:	
 
-![Screenshot from 2023-06-26 16-58-59](https://github.com/abhi09v/vsd-hdp/assets/120673607/3541c70d-b33a-4ce4-9f15-a58ee26d988c)
+![Screenshot from 2023-06-26 16-58-59](https://github.com/abhi09v/vsd-hdp/assets/120673607/9f92c020-48e7-41a1-aac9-6bf00084bbac)
 
 
 </details>
@@ -385,11 +387,11 @@ yosys> write_verilog -noattr <name: mul2_net.v>
 	
 Below is the screenshot of the synthesized design, note that no hardware was used (no cells are synthesised) as multiplying a 3-bit input by a power of two is equivalent to shifting for output:
 
-![Screenshot from 2023-06-26 20-30-55](https://github.com/abhi09v/vsd-hdp/assets/120673607/3a944269-1e6a-4347-b376-b9c8500ba346)
+![Screenshot from 2023-06-26 20-30-55](https://github.com/abhi09v/vsd-hdp/assets/120673607/6a2f005d-8e13-448e-a733-4a6766a6b442)
 	
 Below is the screenshot of the netlist:
 	
-![Screenshot from 2023-06-26 20-38-41](https://github.com/abhi09v/vsd-hdp/assets/120673607/f0ce176b-1d25-424f-8bd8-aec416b879dd)
+![Screenshot from 2023-06-26 20-38-41](https://github.com/abhi09v/vsd-hdp/assets/120673607/1846639e-fcbc-4e22-80e6-980bfb2e238a)
 
 
 </details>
@@ -409,12 +411,13 @@ yosys> write_verilog -noattr <name: mult8_net.v>
 	
 Below is the screenshot of the synthesized design, note that no hardware was used (no cells are synthesised) as multiplying a 3-bit input (special case) by a nine is equivalent to replicating the input twice for output:
 	
-![Screenshot from 2023-06-26 20-46-48](https://github.com/abhi09v/vsd-hdp/assets/120673607/3557ef14-9c95-48af-a914-dfb1a0a5de02)
+![Screenshot from 2023-06-26 20-46-48](https://github.com/abhi09v/vsd-hdp/assets/120673607/22563382-e894-4999-8de8-a2f8742b89e5)
 
 	
 Below is the screenshot of the netlist:
 	
-![Screenshot from 2023-06-26 20-48-08](https://github.com/abhi09v/vsd-hdp/assets/120673607/bde7970a-6718-4f3b-a54b-fb1a90ef6ce7)
+![Screenshot from 2023-06-26 20-48-08](https://github.com/abhi09v/vsd-hdp/assets/120673607/4c651954-182b-41a6-8e67-c1d4804ca56a)
+
 </details>
 
 
