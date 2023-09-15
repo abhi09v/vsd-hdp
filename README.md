@@ -797,7 +797,7 @@ yosys> show
 	
 Below is the screenshot of the obtained optimized design, and 3 flipflops are used in addition to the counting logic of all bits:
 
-![image](https://github.com/abhi09v/vsd-hdp/assets/120673607/60fc2e37-be77-4edc-87bf-939a3cb1f43e)
+![image](https://github.com/abhi09v/vsd-hdp/assets/120673607/69b98b8e-14b4-44fa-8646-17b614c1f837)
 	
 </details>
 
@@ -825,7 +825,7 @@ Below is the screenshot of the obtained optimized design, and 3 flipflops are us
  <summary> Simulation, synthesis, and GLS: ternary_operator_mux.v </summary>
 	
 Below is Verilog Code and testbench for ternary_mux.v
-![Screenshot from 2023-07-08 12-57-41](https://github.com/abhi09v/vsd-hdp/assets/120673607/07aa2d18-080d-4a7c-90f4-8e0ae7bd82ea)
+![Screenshot from 2023-07-08 12-57-41](https://github.com/abhi09v/vsd-hdp/assets/120673607/ad0d22f4-bc49-47be-87e2-291b503b8e30)
 
 Used the below commands to simulate the design of ternary_operator_mux.v:
 	
@@ -837,8 +837,8 @@ gtkwave tb_ternary_operator_mux.vdc
 
 Below is the screenshot of the obtained simulation, we can see that when sel is high y follows i1, and when sel is low y follows i0:
 
-![ternary](https://github.com/abhi09v/vsd-hdp/assets/120673607/88f27d11-cd49-48d8-a3c9-0ad5f2205b85)
 
+![ternary](https://github.com/abhi09v/vsd-hdp/assets/120673607/11bb8fed-3774-465c-ae2d-abf6f045ad2d)
 
 I used the below commands to synthesize the design into a netlist and view the synthesized design of ternary_operator_mux.v:
 	
@@ -853,8 +853,7 @@ yosys> show
 	
 Below is the screenshot of the obtained design:
 
-![Screenshot from 2023-07-08 13-05-11](https://github.com/abhi09v/vsd-hdp/assets/120673607/31742b73-6b5e-4c6d-9587-f6c4d278deaa)
-
+![Screenshot from 2023-07-08 13-05-11](https://github.com/abhi09v/vsd-hdp/assets/120673607/c35dfa85-09c8-49e5-b7d8-7b2997cb11fc)
 
 I used the below commands to carry out GLS of ternary_operator_mux.v:
 	
@@ -866,8 +865,7 @@ gtkwave tb_ternary_operator_mux.vdc
 	
 Below is the screenshot of the obtained simulation, and this matches with pre-synthesis simulation:
 	
-![Screenshot from 2023-07-08 13-55-20](https://github.com/abhi09v/vsd-hdp/assets/120673607/9ffc371f-63fa-4996-adbb-2723d0c1d962)
-	
+![Screenshot from 2023-07-08 13-55-20](https://github.com/abhi09v/vsd-hdp/assets/120673607/01d2fd5c-4704-459d-878d-d2be25cdc30c)	
 </details>
 
 <details>
@@ -883,8 +881,7 @@ gtkwave tb_bad_mux.vdc
 
 Below is the screenshot of the obtained simulation, we can see that when inputs change, y is not evaluated which is wrong behavior:
 
-![Screenshot from 2023-07-08 14-00-35](https://github.com/abhi09v/vsd-hdp/assets/120673607/a8b265de-af24-439b-acfd-2cb9f7e2c8e3)
-
+![Screenshot from 2023-07-08 14-00-35](https://github.com/abhi09v/vsd-hdp/assets/120673607/b075f56f-93df-4104-8379-a96d853e4b69)
 
 
 I used the below commands to synthesize the design into a netlist and view the synthesized design of bad_mux.v:
@@ -900,14 +897,12 @@ yosys> show
 	
 Below is the screenshot of the obtained design:
 
-![Screenshot from 2023-07-08 14-04-13](https://github.com/abhi09v/vsd-hdp/assets/120673607/002f3031-9c6d-43aa-ab49-4e0611c5e17d)
-
+![Screenshot from 2023-07-08 14-04-13](https://github.com/abhi09v/vsd-hdp/assets/120673607/1796fa73-ef26-4e9a-a2b5-f03c187cd550)
 
 	
 Below is the screenshot of the obtained netlist:
 
-![Screenshot from 2023-07-08 14-07-12](https://github.com/abhi09v/vsd-hdp/assets/120673607/c3bdd33e-e839-4bf3-b467-1d3d876428f7)
-
+![Screenshot from 2023-07-08 14-07-12](https://github.com/abhi09v/vsd-hdp/assets/120673607/76c79bb6-82a8-4399-8099-3f6b9e641ec7)
 	
 I used the below commands to carry out GLS of bad_mux.v:
 	
@@ -919,8 +914,7 @@ gtkwave tb_bad_mux.vdc
 	
 Below is the screenshot of the obtained simulation, and this mismatches with pre-synthesis simulation:
 	
-![Screenshot from 2023-07-08 14-22-54](https://github.com/abhi09v/vsd-hdp/assets/120673607/21577d1e-e01a-408a-9cb1-73e9abcd35f6)
-
+![Screenshot from 2023-07-08 14-22-54](https://github.com/abhi09v/vsd-hdp/assets/120673607/2589ded1-e1b6-4962-8684-0669b1d1e77d)
 	
 </details>
 
@@ -928,8 +922,7 @@ Below is the screenshot of the obtained simulation, and this mismatches with pre
  <summary> Simulation, synthesis, and GLS: blocking_caveat.v </summary>
 Below is verilog code for blocking_caveat.v
 	
-![Screenshot from 2023-07-08 14-38-16](https://github.com/abhi09v/vsd-hdp/assets/120673607/c7df3fb4-161d-47cf-b648-c444e15af992)
-
+![Screenshot from 2023-07-08 14-38-16](https://github.com/abhi09v/vsd-hdp/assets/120673607/0613687a-2e5b-47cb-8051-d471b8b7f012)
 I used the below commands to simulate the design of blocking_caveat.v:
 	
 ```bash
@@ -940,8 +933,7 @@ gtkwave tb_blocking_caveat.vdc
 
 Below is the screenshot of the obtained simulation, and as we can see d is seeing the precious values, and hence it is acting as if there was a flop in the circuit which is not the case (incorrect behavior):
 
-![Screenshot from 2023-07-08 14-38-42](https://github.com/abhi09v/vsd-hdp/assets/120673607/905380a2-7a13-4d6a-b6a8-854e978d7e98)
-
+![Screenshot from 2023-07-08 14-38-42](https://github.com/abhi09v/vsd-hdp/assets/120673607/879fcef7-5b00-4939-ab99-488be704f742)
 
 I used the below commands to synthesize the design into a netlist and view the synthesized design of blocking_caveat.v:
 	
@@ -956,12 +948,12 @@ yosys> show
 	
 Below is the screenshot of the obtained design:
 
-![Screenshot from 2023-07-08 14-42-29](https://github.com/abhi09v/vsd-hdp/assets/120673607/13f451ea-224d-4d99-b462-fc77e8959a83)
+![Screenshot from 2023-07-08 14-42-29](https://github.com/abhi09v/vsd-hdp/assets/120673607/4ced99de-6542-406c-96b4-444f62230452)
 
 	
 Below is the screenshot of the obtained netlist:
 
-![Screenshot from 2023-07-08 14-44-54](https://github.com/abhi09v/vsd-hdp/assets/120673607/c47912d2-c346-4ba8-b588-4fc55de1f686)
+![Screenshot from 2023-07-08 14-44-54](https://github.com/abhi09v/vsd-hdp/assets/120673607/015f3a49-dbcc-4ba6-83a1-33adce21108e)
 
 
 I used the below commands to carry out GLS of blocking_caveat.v:
@@ -974,7 +966,7 @@ gtkwave tb_blocking_caveat.vdc
 	
 Below is the screenshot of the obtained simulation, and this mismatches with pre-synthesis simulation due to blocking statement:
 	
-![Screenshot from 2023-07-08 14-47-18](https://github.com/abhi09v/vsd-hdp/assets/120673607/b86b1719-dd19-4d68-8b4a-921b12ead186)
+![Screenshot from 2023-07-08 14-47-18](https://github.com/abhi09v/vsd-hdp/assets/120673607/44343f97-61c1-4e33-bbac-2a7b6fe95e9a)
 
 	
 </details>
