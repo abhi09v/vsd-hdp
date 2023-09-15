@@ -1357,7 +1357,8 @@ Below is the screenshot of the obtained simulation, and this matches with pre-sy
 My design  is 4 stage pipelined desgin where:
 - Register Bank containing 16 16-bit Register
 - 256*16 Memory
- using 2 phase clock for alternate pipeline stages act as master-slave clock 
+ using 2 phase clock for alternate pipeline stages act as master-slave clock
+
 ![Screenshot from 2023-09-15 22-40-12](https://github.com/abhi09v/vsd-hdp/assets/120673607/199be16e-9818-416a-9b58-5f7bf14b9a7a)
 
 </details>	
@@ -1365,8 +1366,10 @@ My design  is 4 stage pipelined desgin where:
 <details>
  <summary> Verilog codes  </summary>	
 	### pipe_mem.v
+	
 ![Screenshot from 2023-09-15 22-47-37](https://github.com/abhi09v/vsd-hdp/assets/120673607/996d9dda-26c4-4ee2-a582-ba61d01fe342)
       ### pipe.mem_tb.v
+      
  ![Screenshot from 2023-09-15 22-48-00](https://github.com/abhi09v/vsd-hdp/assets/120673607/4f5ae3ce-6070-463d-a6e3-34da40c3a7a4)     
 	
 	
