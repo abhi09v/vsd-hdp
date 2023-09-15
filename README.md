@@ -1003,8 +1003,7 @@ gtkwave tb_incomp_if.vdc
 
 Below is the screenshot of the obtained simulation, we can see that there is an inferred latch as output is latching to a constant value when select is not high:
 
-![Screenshot from 2023-07-08 19-01-59](https://github.com/abhi09v/vsd-hdp/assets/120673607/f035b6f8-e012-4426-9f54-7cf0c6a5e5ad)
-
+![Screenshot from 2023-07-08 19-01-59](https://github.com/abhi09v/vsd-hdp/assets/120673607/28b8f474-3330-4054-be7f-3568c2dc2812)
 
 
 I used the below commands to view the synthesized design of incomp_if.v:
@@ -1019,8 +1018,7 @@ yosys> show
 	
 Below is the screenshot of the obtained design, and a latch is seen as was expected:
 
-![Screenshot from 2023-07-08 19-06-43](https://github.com/abhi09v/vsd-hdp/assets/120673607/95d062c0-b64b-406a-b1d6-df7f241ad73e)
-
+![Screenshot from 2023-07-08 19-06-43](https://github.com/abhi09v/vsd-hdp/assets/120673607/6b6a0464-909e-4692-9b8d-c678bf0cf352)
 
 </details>
 	
@@ -1028,8 +1026,7 @@ Below is the screenshot of the obtained design, and a latch is seen as was expec
  <summary> Simulation and synthesis: incomp_if2.v </summary>
 	
 Below is Verilog Code incomp_if.v
-![Screenshot from 2023-07-08 19-11-00](https://github.com/abhi09v/vsd-hdp/assets/120673607/5f1e7a49-1c28-4eb7-ba24-35c1064f4deb)
-
+![Screenshot from 2023-07-08 19-11-00](https://github.com/abhi09v/vsd-hdp/assets/120673607/99984bd1-11a8-44f1-bd1d-5e3d7de928d2)
 I used the below commands to simulate the design of incomp_if2.v:
 	
 ```bash
@@ -1040,8 +1037,7 @@ gtkwave tb_incomp_if2.vdc
 
 Below is the screenshot of the obtained simulation, we can see that the output latches a constant value when i0 and i2 are zero:
 
-![Screenshot from 2023-07-08 19-21-00](https://github.com/abhi09v/vsd-hdp/assets/120673607/56caa856-f666-465b-a42c-2559e72f7879)
-
+![Screenshot from 2023-07-08 19-21-00](https://github.com/abhi09v/vsd-hdp/assets/120673607/4ce2cdef-5191-4bd1-83a4-6238d2c677f9)
 
 
 I used the below commands to view the synthesized design of incomp_if2.v:
@@ -1056,8 +1052,7 @@ yosys> show
 	
 Below is the screenshot of the obtained design, and we can see a latch as was expected:
 
-![Screenshot from 2023-07-08 19-22-33](https://github.com/abhi09v/vsd-hdp/assets/120673607/51abbc33-a840-4d40-aa69-e9aecefec6c9)
-
+![Screenshot from 2023-07-08 19-22-33](https://github.com/abhi09v/vsd-hdp/assets/120673607/e1e86a1a-e536-4f20-b3db-c156afd059c4)
 
 </details>
 
@@ -1076,8 +1071,7 @@ gtkwave tb_incomp_case.vdc
 
 Below is the screenshot of the obtained simulation, we can see that the output latches a constant value when select has a vlaue of 2 or 3 (when sel[1] is 1):
 
-![Screenshot from 2023-07-08 19-42-33](https://github.com/abhi09v/vsd-hdp/assets/120673607/b1c5e483-c077-4fb9-ac19-99d4f803a517)
-
+![Screenshot from 2023-07-08 19-42-33](https://github.com/abhi09v/vsd-hdp/assets/120673607/a866aca7-0e7b-431a-b7c0-6c11d84b077b)
 
 
 I used the below commands to view the synthesized design of incomp_case.v:
@@ -1092,8 +1086,8 @@ yosys> show
 	
 Below is the screenshot of the obtained design, and we can see a latch as was expected:
 	
-![Screenshot from 2023-07-08 19-44-33](https://github.com/abhi09v/vsd-hdp/assets/120673607/32a5b0b3-dcf7-49b1-b91b-4d316b374079)
 
+![Screenshot from 2023-07-08 19-44-33](https://github.com/abhi09v/vsd-hdp/assets/120673607/2b5a8b1f-72bd-4dbe-b888-4be337d6a226)
 
 </details>
 
@@ -1110,8 +1104,7 @@ gtkwave tb_comp_case.vdc
 
 Below is the screenshot of the obtained simulation, we can see that the output follows i2 when select has a value of 2 or 3 (when sel[1] is 1):
 
-![Screenshot from 2023-07-09 21-07-49](https://github.com/abhi09v/vsd-hdp/assets/120673607/285537b2-6af2-4838-a886-08c00387f31e)
-
+![Screenshot from 2023-07-09 21-07-49](https://github.com/abhi09v/vsd-hdp/assets/120673607/caa6c34b-7b59-4ec2-b2c2-51d25b6a52d9)
 
 I used the below commands to view the synthesized design of comp_case.v:
 	
@@ -1125,8 +1118,7 @@ yosys> show
 	
 Below is the screenshot of the obtained design, and we do not see a latch as was expected:
 	
-![Screenshot from 2023-07-09 21-10-33](https://github.com/abhi09v/vsd-hdp/assets/120673607/9aa87d07-2442-4f22-b7f6-231eeba5d50d)
-
+![Screenshot from 2023-07-09 21-10-33](https://github.com/abhi09v/vsd-hdp/assets/120673607/eaad1d46-f1cb-4c02-93ee-65d073f78f0c)
 
 </details>
 	
@@ -1145,8 +1137,7 @@ yosys> show
 	
 Below is the screenshot of the obtained design, and we see one latch for x output as was expected, and the boolean expressions of x and y that were expected are also inferred by the design obtained:
 
- ![Screenshot from 2023-07-10 12-02-42](https://github.com/abhi09v/vsd-hdp/assets/120673607/a475f254-0aa5-4c81-9811-92bfc57f36ff)
-
+![Screenshot from 2023-07-10 12-02-42](https://github.com/abhi09v/vsd-hdp/assets/120673607/733cdff9-9c21-4c28-9edf-644044fad616)
 
 </details>
 
@@ -1163,7 +1154,7 @@ gtkwave tb_bad_case.vdc
 
 Below is the screenshot of the obtained simulation, we can see that when sel is "11", the simulator is getting confused and output y is taking a constant "1" value:
 	
-![Screenshot from 2023-07-10 12-05-11](https://github.com/abhi09v/vsd-hdp/assets/120673607/b0d28993-5f45-4fee-8680-6a45d866516f)
+![Screenshot from 2023-07-10 12-05-11](https://github.com/abhi09v/vsd-hdp/assets/120673607/b524cd47-6759-4d18-bda0-2b2c69b169c1)
 
 
 I used the below commands to synthesize and view the synthesized design of bad_case.v:
@@ -1179,7 +1170,7 @@ yosys> show
 	
 Below is the screenshot of the obtained design, and there is no inferred latch:
 	
-![Screenshot from 2023-07-10 12-08-08](https://github.com/abhi09v/vsd-hdp/assets/120673607/95aa01e9-f0b0-43dc-970e-ffb0ea1cbc9c)
+![Screenshot from 2023-07-10 12-08-08](https://github.com/abhi09v/vsd-hdp/assets/120673607/a1dfe5f1-1543-4a7e-812d-492d597c8d9a)
 
 	
 I used the below commands to carry out GLS of bad_case.v:
@@ -1192,7 +1183,7 @@ gtkwave tb_bad_case.vdc
 	
 Below is the screenshot of the obtained simulation, and this mismatches with pre-synthesis simulation. When sel is "11", y takes value of i3 and no latching happens here:
 	
-![Screenshot from 2023-07-10 12-05-11](https://github.com/abhi09v/vsd-hdp/assets/120673607/05b86cca-d02b-461f-af76-bde5cc459283)
+![Screenshot from 2023-07-10 12-05-11](https://github.com/abhi09v/vsd-hdp/assets/120673607/7caa45a0-58c7-49cf-a3c3-0622a0d4dbb6)
 
 
 </details>
@@ -1210,7 +1201,7 @@ gtkwave tb_mux_generate.vdc
 
 Below is the screenshot of the obtained simulation, we can see it's a 4:1 mux functionality:
 	
-![Screenshot from 2023-07-10 19-20-58](https://github.com/abhi09v/vsd-hdp/assets/120673607/845691d8-80ea-4d88-83f5-2b7f54d9f231)
+![Screenshot from 2023-07-10 19-20-58](https://github.com/abhi09v/vsd-hdp/assets/120673607/741e0e51-c441-4eaa-b62e-1770a74e962f)
 
 
 I used the below commands to synthesize and view the synthesized design of mux_generate.v:
@@ -1227,7 +1218,7 @@ yosys> show
 Below is the screenshot of the obtained design, and it is a 4:1 mux:
 	
 
-<img width="477" alt="mux_generate" src="https://github.com/mariamrakka/vsd-hdp/assets/49097440/7088fd71-6d8c-4ca1-b7dd-de5aff78fa12">
+![Screenshot from 2023-07-10 19-22-42](https://github.com/abhi09v/vsd-hdp/assets/120673607/85579aa6-9690-4058-ae4f-2b284f25a88b)
 
 I used the below commands to carry out GLS of mux_generate.v:
 	
@@ -1239,7 +1230,7 @@ gtkwave tb_mux_generate.vdc
 	
 Below is the screenshot of the obtained simulation, and this matches with pre-synthesis simulation:
 
-![Screenshot from 2023-07-10 19-22-42](https://github.com/abhi09v/vsd-hdp/assets/120673607/6dd1282d-95cb-4bc1-9267-d0e7550f2d7d)
+![Screenshot from 2023-07-10 19-27-28](https://github.com/abhi09v/vsd-hdp/assets/120673607/6f240db6-f89d-4c7e-be0a-5d46722290e3)
 
 
 </details>
@@ -1257,7 +1248,7 @@ gtkwave tb_demux_case.vdc
 
 Below is the screenshot of the obtained simulation, we can see it's a 1:8 demux functionality:
 	
-![Screenshot from 2023-07-10 19-27-28](https://github.com/abhi09v/vsd-hdp/assets/120673607/54b0ae38-7c1b-4a6e-813b-363122e544c5)
+![Screenshot from 2023-07-10 19-30-43](https://github.com/abhi09v/vsd-hdp/assets/120673607/7438c7fe-37a1-43a5-8e4e-e58cf8accfbd)
 
 
 
@@ -1276,7 +1267,7 @@ gtkwave tb_demux_generate.vdc
 
 Below is the screenshot of the obtained simulation, we can see it's a 1:8 demux functionality (same as demux_case.v):
 	
-![Screenshot from 2023-07-10 19-30-43](https://github.com/abhi09v/vsd-hdp/assets/120673607/0ec605c2-3f5c-4c65-9f86-39d9b3ec236d)
+![Screenshot from 2023-07-10 19-33-03](https://github.com/abhi09v/vsd-hdp/assets/120673607/d78ccfd3-adcf-4f9c-be8b-3e62a306a954)
 
 
 
@@ -1293,8 +1284,7 @@ yosys> show
 	
 Below is the screenshot of the obtained design, and it is a 1:8 demux:
 	
-![Screenshot from 2023-07-10 19-34-55](https://github.com/abhi09v/vsd-hdp/assets/120673607/9f0e4996-cdb2-40ea-b86a-bbe5d6d9a3b2)
-
+![Screenshot from 2023-07-10 19-34-55](https://github.com/abhi09v/vsd-hdp/assets/120673607/44415ce5-2230-4a68-b44b-01c51116abfa)
 
 
 I used the below commands to carry out GLS of demux_generate.v:
@@ -1307,7 +1297,7 @@ gtkwave tb_demux_generate.vdc
 	
 Below is the screenshot of the obtained simulation, and this matches with pre-synthesis simulation:
 
-![Screenshot from 2023-07-10 19-36-57](https://github.com/abhi09v/vsd-hdp/assets/120673607/fc7fe91e-cc71-475b-807b-a4ac66eaaf27)
+![Screenshot from 2023-07-10 19-36-57](https://github.com/abhi09v/vsd-hdp/assets/120673607/ba94d517-9e97-4d82-afdf-9d354c3109af)
 
 
 
@@ -1326,7 +1316,7 @@ gtkwave tb_rca.vdc
 
 Below is the screenshot of the obtained simulation, we can see it's an 8-bit RCA functionality:
 	
-![Screenshot from 2023-07-10 19-44-58](https://github.com/abhi09v/vsd-hdp/assets/120673607/e8a57dcc-7ecf-4038-b361-4003579a0125)
+![Screenshot from 2023-07-10 19-44-58](https://github.com/abhi09v/vsd-hdp/assets/120673607/871776e9-b360-443b-a945-8cdd81fc34ba)
 
 
 I used the below commands to synthesize and view the synthesized design of rca.v:
@@ -1343,8 +1333,7 @@ yosys> show
 	
 Below is the screenshot of the obtained design, and it is an 8-bit RCA:
 
-![image](https://github.com/abhi09v/vsd-hdp/assets/120673607/13e97645-a0c6-40d2-98bf-9e4ccd5edc1f)
-
+![Screenshot from 2023-07-10 19-34-55](https://github.com/abhi09v/vsd-hdp/assets/120673607/d2246f3d-5e20-4483-93e2-168d3d3e75d9)
 
 I used the below commands to carry out GLS of rca.v:
 	
@@ -1356,7 +1345,7 @@ gtkwave tb_rca.vdc
 	
 Below is the screenshot of the obtained simulation, and this matches with pre-synthesis simulation:
 
-![Screenshot from 2023-07-10 19-55-02](https://github.com/abhi09v/vsd-hdp/assets/120673607/af48f0ac-0bd0-42e3-9e2e-ad883d56e855)
+![Screenshot from 2023-07-10 19-55-02](https://github.com/abhi09v/vsd-hdp/assets/120673607/b9576a10-628f-4582-8e8d-6d06df03fcc0)
 
 </details>
 	
