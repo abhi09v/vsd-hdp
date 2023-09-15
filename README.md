@@ -457,11 +457,11 @@ yosys> show
 Belog is verilog code of opt_ckeck.v 
 
 
-![Screenshot from 2023-07-01 15-48-54](https://github.com/abhi09v/vsd-hdp/assets/120673607/cb89f3e4-9692-4e30-a000-c99dd810b049)
+![Screenshot from 2023-07-01 15-48-54](https://github.com/abhi09v/vsd-hdp/assets/120673607/8389acc1-e872-417c-b768-72084cbf7b2a)
 
 Below is the screenshot of the obtained optimized design, as we can see a 2-input and gate is realized as was expected when optimizations are applied:
 
-![Screenshot from 2023-07-01 15-19-57](https://github.com/abhi09v/vsd-hdp/assets/120673607/16d8e34b-9e1a-4372-8fca-ce55b473d4c1)
+![Screenshot from 2023-07-01 15-19-57](https://github.com/abhi09v/vsd-hdp/assets/120673607/6fb53252-1ddd-4b65-885d-83df40ad552b)
 
 </details>
 	
@@ -479,12 +479,11 @@ yosys> show
 ```
 below is screentshot of the opt_check2.v
 
-![Screenshot from 2023-07-01 15-49-15](https://github.com/abhi09v/vsd-hdp/assets/120673607/19112db0-d73c-43f9-8650-fc411f38ca0c)
-
+![Screenshot from 2023-07-01 15-49-15](https://github.com/abhi09v/vsd-hdp/assets/120673607/40ed1964-0e4e-4d29-93a2-5b8c032ed44c)
 
 Below is the screenshot of the obtained optimized design, as we can see a 2-input or gate is realized as was expected when optimizations are applied:
 	
-![Screenshot from 2023-07-01 15-36-37](https://github.com/abhi09v/vsd-hdp/assets/120673607/23ce991c-3056-49a1-a3f0-5752cd4a0886)
+![Screenshot from 2023-07-01 15-36-37](https://github.com/abhi09v/vsd-hdp/assets/120673607/e8139182-4cdb-413d-8211-dfacbe161c3d)
 
 
 
@@ -504,12 +503,12 @@ yosys> abc -liberty <path to sky130_fd_sc_hd__tt_025C_1v80.lib>
 yosys> show
 ```
 below is screentshot of the opt_check3.v
-![Screenshot from 2023-07-01 15-49-42](https://github.com/abhi09v/vsd-hdp/assets/120673607/3da9ed2a-66b8-425f-9dd7-daf506be25ee)
+![Screenshot from 2023-07-01 15-49-42](https://github.com/abhi09v/vsd-hdp/assets/120673607/ee36b77e-1e86-4504-b9b9-03bf5674750c)
 
 Below is the screenshot of the obtained optimized design, as we can see a 3-input and gate is realized as was expected when optimizations are applied:
 	
 
-![Screenshot from 2023-07-01 15-43-58](https://github.com/abhi09v/vsd-hdp/assets/120673607/5f1406f2-1593-4cf4-b012-2a6b0bb36ecb)
+![Screenshot from 2023-07-01 15-43-58](https://github.com/abhi09v/vsd-hdp/assets/120673607/e17bd9f5-fee0-4666-ab20-4ae906d71b90)
 
 
 
@@ -530,12 +529,11 @@ yosys> show
 ```
 
 below is screentshot of the opt_check4.v
-![Screenshot from 2023-07-01 15-50-56](https://github.com/abhi09v/vsd-hdp/assets/120673607/b6efeb20-3dd4-4676-b1e9-0033e0a5c6de)
+![Screenshot from 2023-07-01 15-50-56](https://github.com/abhi09v/vsd-hdp/assets/120673607/e8abfb6b-d03d-4268-9ec0-c8c3187cd112)
 
 Below is the screenshot of the obtained optimized design, as we can see a 2-input xnor gate is realized as was expected when optimizations are applied:
 	
-![Screenshot from 2023-07-01 16-01-33](https://github.com/abhi09v/vsd-hdp/assets/120673607/3ea26e1f-ba14-47fe-b189-2e4ba1f5b2a5)
-
+![Screenshot from 2023-07-01 16-01-33](https://github.com/abhi09v/vsd-hdp/assets/120673607/e362e75c-7b4f-45dc-a36e-5b894ba19206)
 
 
 </details>
@@ -557,8 +555,7 @@ yosys> show
 
 Below is the screenshot of the obtained optimized design, as we can see 2 and gates and 1 or gate are realized as was expected when optimizations are applied:
 	
-![Screenshot from 2023-07-01 16-04-20](https://github.com/abhi09v/vsd-hdp/assets/120673607/937d7799-b40d-4d23-8d25-99577d2a582d)
-
+![Screenshot from 2023-07-01 16-04-20](https://github.com/abhi09v/vsd-hdp/assets/120673607/035f03c3-06cd-4e6a-81f3-aca12cfeefe3)
 
 </details>
 	
@@ -579,8 +576,8 @@ yosys> show
 	
 Below is the screenshot of the obtained optimized design, as we can see no standard cells are realized as was expected when optimizations are applied:
 	
- ![Screenshot from 2023-07-01 16-08-14](https://github.com/abhi09v/vsd-hdp/assets/120673607/85cc53cc-579b-4e7b-b3b3-5e2545923b27)
-![Screenshot from 2023-07-01 16-05-30](https://github.com/abhi09v/vsd-hdp/assets/120673607/eeccf597-e897-425e-8155-032a660a4f8a)
+![Screenshot from 2023-07-01 16-08-14](https://github.com/abhi09v/vsd-hdp/assets/120673607/5033030b-4e0f-4f6d-9d9d-5cd91a14b92b)
+![Screenshot from 2023-07-01 16-05-30](https://github.com/abhi09v/vsd-hdp/assets/120673607/4852beaf-665d-4fe2-a467-cb72f0131c63)
 
 </details>
 	
@@ -597,9 +594,8 @@ gtkwave tb_dff_const1.vdc
 
 Below is the screenshot of the obtained simulation, a we can see even when reset is zero, Q waits for next rising edge of clock:
 	
-![Screenshot from 2023-07-01 16-19-12](https://github.com/abhi09v/vsd-hdp/assets/120673607/20d6399b-6917-4036-bd9b-dea20c81cd19)
 
-
+![Screenshot from 2023-07-01 16-19-12](https://github.com/abhi09v/vsd-hdp/assets/120673607/a4a27abb-5e1a-4ea9-8e5d-342dc1f33667)
 	
 I used the below commands to view the synthesized design of dff_const1.v with optimizations:
 	
@@ -615,7 +611,7 @@ yosys> show
 Below is the screenshot of the obtained optimized design:
 	
 
-![Screenshot from 2023-07-01 16-25-12](https://github.com/abhi09v/vsd-hdp/assets/120673607/18c52372-acc7-4e46-95cb-953dde191307)
+![Screenshot from 2023-07-01 16-25-12](https://github.com/abhi09v/vsd-hdp/assets/120673607/6b246625-4aef-4bf4-85af-8d5fed4de462)
 
 
 
@@ -635,7 +631,7 @@ gtkwave tb_dff_const2.vdc
 
 Below is the screenshot of the obtained simulation, as we can see Q is one regardless of the value of reset and clock:
 	
-![Screenshot from 2023-07-01 16-21-43](https://github.com/abhi09v/vsd-hdp/assets/120673607/d029fc0f-cdb9-44bd-9fec-5d3fd67887c1)
+![Screenshot from 2023-07-01 16-21-43](https://github.com/abhi09v/vsd-hdp/assets/120673607/72f5e638-a6cb-4b6f-a4f6-dbab1db8ce5b)
 
 
 I used the below commands to view the synthesized design of dff_const2.v with optimizations:
@@ -650,9 +646,9 @@ yosys> show
 ```
 	
 Below is the screenshot of the obtained optimized design:
-	
 
-![Screenshot from 2023-07-01 16-37-25](https://github.com/abhi09v/vsd-hdp/assets/120673607/7106bf31-ccd0-4a92-aca9-d9c57fcba557)
+![Screenshot from 2023-07-01 16-37-25](https://github.com/abhi09v/vsd-hdp/assets/120673607/efcaf488-a7b3-4d27-b910-3673ab564acf)
+
 
 
 </details>
@@ -671,8 +667,7 @@ gtkwave tb_dff_const3.vdc
 
 Below is the screenshot of the obtained simulation, as we can see Q does not follow Q1 immediately:
 	
-![Screenshot from 2023-07-01 17-22-57](https://github.com/abhi09v/vsd-hdp/assets/120673607/44c7e890-0dff-4c68-a537-74164e0a9457)
-
+![Screenshot from 2023-07-01 17-22-57](https://github.com/abhi09v/vsd-hdp/assets/120673607/f3a2a557-7cd0-4e4b-9806-ae464d81bc4a)
 
 I used the below commands to view the synthesized design of dff_const3.v:
 	
@@ -688,7 +683,7 @@ yosys> show
 Below is the screenshot of the obtained design, the 2 flipflops are retained and optimization could not remove any of them:
 
 
-![Screenshot from 2023-07-01 16-40-04](https://github.com/abhi09v/vsd-hdp/assets/120673607/8958568d-f9ef-4a7f-ae6d-1a05ce81d48b)
+![Screenshot from 2023-07-01 16-40-04](https://github.com/abhi09v/vsd-hdp/assets/120673607/9e6b8cba-9de6-4572-a2c4-bbba8a6419a0)
 
 
 
@@ -708,8 +703,7 @@ gtkwave tb_dff_const4.vdc
 Below is the screenshot of the obtained simulation, as we can see Q and Q1 are one regardless of clk and reset:
 
 
-![Screenshot from 2023-07-01 17-26-50](https://github.com/abhi09v/vsd-hdp/assets/120673607/d705bc32-6e7e-4e46-8312-5bfc0360688e)
-
+![Screenshot from 2023-07-01 17-26-50](https://github.com/abhi09v/vsd-hdp/assets/120673607/37838a9e-56d0-41a7-961b-7645b2d23659)
 
 	
 I used the below commands to view the synthesized design of dff_const4.v with optimizations:
@@ -726,7 +720,8 @@ yosys> show
 Below is the screenshot of the obtained optimized design, and no hardware was used as expected:
 	
 
-![Screenshot from 2023-07-01 16-42-08](https://github.com/abhi09v/vsd-hdp/assets/120673607/d3177004-b87b-4e88-bfcc-35c3a8075614)
+
+![Screenshot from 2023-07-01 16-42-08](https://github.com/abhi09v/vsd-hdp/assets/120673607/4ebf745b-c6e6-4c12-a7df-095ef3c84a87)
 
 
 </details>
@@ -744,8 +739,7 @@ gtkwave tb_dff_const5.vdc
 
 Below is the screenshot of the obtained simulation, as we can see when reset is zero, Q1 becomes one on the next rising edge of clk, and Q follows Q1 on the next rising edge of clk:
 
-![Screenshot from 2023-07-01 17-29-02](https://github.com/abhi09v/vsd-hdp/assets/120673607/a665687f-4771-4196-90b0-33b93da5fc9f)
-
+![Screenshot from 2023-07-01 17-29-02](https://github.com/abhi09v/vsd-hdp/assets/120673607/26784e6e-7323-42cb-808a-2df13b4b4079)
 	
 I used the below commands to view the synthesized design of dff_const5.v with optimizations:
 	
@@ -761,7 +755,7 @@ yosys> show
 Below is the screenshot of the obtained optimized design, and the 2 flipflops are retained:
 	
 
-![Screenshot from 2023-07-01 16-50-35](https://github.com/abhi09v/vsd-hdp/assets/120673607/3a83ddc1-095e-4c3b-9047-0d466d2f00b6)
+![Screenshot from 2023-07-01 16-50-35](https://github.com/abhi09v/vsd-hdp/assets/120673607/898db664-4d27-4fbe-88bb-7c52f3bf93ef)
 
 
 </details>
@@ -783,8 +777,7 @@ yosys> show
 Below is the screenshot of the obtained optimized design, and the only used output (count[0]) is present and 1 flipflop is used:
 	
 
-![Screenshot from 2023-07-01 16-53-07](https://github.com/abhi09v/vsd-hdp/assets/120673607/8bf2059c-ae20-4e39-84d1-db10fc7cc77a)
-
+![Screenshot from 2023-07-01 16-53-07](https://github.com/abhi09v/vsd-hdp/assets/120673607/e9580706-9cc0-4858-92bf-d51f765ee306)
 	
 </details>
 	
