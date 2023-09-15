@@ -1333,7 +1333,7 @@ yosys> show
 	
 Below is the screenshot of the obtained design, and it is an 8-bit RCA:
 
-![Screenshot from 2023-07-10 19-34-55](https://github.com/abhi09v/vsd-hdp/assets/120673607/d2246f3d-5e20-4483-93e2-168d3d3e75d9)
+![image](https://github.com/abhi09v/vsd-hdp/assets/120673607/7ff257df-93f7-461d-b062-74ad285747fa)
 
 I used the below commands to carry out GLS of rca.v:
 	
