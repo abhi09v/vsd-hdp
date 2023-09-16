@@ -1415,12 +1415,12 @@ Below is the screenshot of the obtained design:
 ![Screenshot from 2023-09-15 22-32-26](https://github.com/abhi09v/vsd-hdp/assets/120673607/3949a930-f9cd-46bb-9633-03c130a558e3)
 
 	
-I used the below commands to carry out GLS of mariam_updown_counter.v:
+
 	
 ```bash
-iverilog <path to verilog model: ../mylib/verilog_model/primitives.v> <path to verilog model: ../mylib/verilog_model/sky130_fd_sc_hd.v> <name netlist: mariam_updown_counter_net.v> <name testbench: tb_mariam_updown_counter.v>
+iverilog <path to verilog model: ../mylib/verilog_model/primitives.v> <path to verilog model: ../mylib/verilog_model/sky130_fd_sc_hd.v> <name netlist: pipe_mem_heir.v> <name testbench: pipe_mem_tb.v>
 ./a.out
-gtkwave tb_mariam_updown_counter.vdc
+gtkwave pipe_mem_tb.vdc
 ```	
 Below is screenshot of Lib cell 
 ![Screenshot from 2023-09-15 22-32-45](https://github.com/abhi09v/vsd-hdp/assets/120673607/74fbba9f-8e9c-4931-b581-82b99cf05c9d)
