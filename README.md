@@ -1455,9 +1455,7 @@ Timing paths have start points (input ports or/and clock pins of registers) and 
 - 2-) I need to contstraint the input delay in order to have synchronous paths (from external registers to internal registers) working on the same clock => input-register timing paths are constrained by the input external delay and clock.
 - 3-) I have to constraint the output delay as to have synchronous paths (from internal registers to external registers) working on the same clock => register-output timing paths are constrained by the output external delay and clock. Note that register-output and input-register timing paths are collectively the IO timing paths (delay associated to them is called IO delay modeling). IO pathes also need to be constrained for max delay (setup) and min delay (hold).
 
-From input side perspective: Tclk=Tinp-ext+Tint where Tint=Tinputlogic+Tsetup, here external delay is accounted for, but the input signals are not ideal, the transitions (non-zero rise time) will lead Tinputlogic to increase hence violating the setup time => need to model those input transitions by adding constraints => Input-register time paths are constrained by input external delay, clock, and input transitions.
-	
-From output side perspective: Tclk=Tint+Topext where Tint=Tcq+Toplogic and Topext includes Tsetup, here external delay accounted for, but output load is not and this might lead to setup violations => need to model output load (from specs) by adding constraints. Register-input time paths are constrained by output external delay, clock, and output load.
+READ THIS- https://drive.google.com/file/d/1I4HeX4hvjyyLUUMmaqOJCj9G2gaZaMYS/view?usp=drive_link
 	
 Rule of thumb: The Tclk is 70% for external delay and 30% internal delay. The synthesis tools infer the cell delay numbers from the .lib file.
 	
@@ -1542,6 +1540,6 @@ In order to write all available attributes that can be used to do queries to a f
 ```bash
 list_attributes -app > <name: a>
 ```
-	
+READ THIS -https://drive.google.com/file/d/1ljPXmtvoDVkRASEjanTJkIf4UajWXaR5/view?usp=drive_link	
 </details>
 	
