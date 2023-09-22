@@ -1431,3 +1431,117 @@ Below is the part of code of the generated netlist:
 ![Screenshot from 2023-09-15 23-07-04](https://github.com/abhi09v/vsd-hdp/assets/120673607/b8e51bbb-4aea-479a-b918-8d4d3a4c582e)
 	
 </details>
+
+## Day 7
+	
+<details>
+ <summary> Summary </summary>
+	
+###About Static Timing Analysis (STA).
+
+-  setup time is the time the input data signals must be stable (either high or low) before the active clock edge occurs while hold time is the time the input data signals must be stable (either high or low) after the active clock edge occurs.
+
+-  It is important to note that min delay Thold<=Tcq_inflop+Tcomb) and max delay are two sides of the same coin: if there was no min delay we could have met any max delay requirement by pushing the clock. But when we push the clock we interfere with the time of the "capture" flop.
+
+-  Delay is a function of inflow of current (i.e. input transition): if there is fast current sourcing, we will get less delay (fast-rise). Delay is also a function of load capacitance. The timing arcs in combinational cells consist the delay information from every input pin to every outp-ut pin it can control.
+
+-  The timing arcs in a sequantial cell consist of delay from clock to Q for D flipflop or of delay from clock to Q and that from D to Q in case of a D latch. In both cases, timing arcs in a sequential cell also consist of setup/hold delays from clock to D. Note that setup/hold are around the sampling. Below is a picture noting the timing arcs in the sequential case.
+	
+
+
+Timing paths have start points (input ports or/and clock pins of registers) and end points (output ports or/and D pin of DFF/DLAT). TIming paths always start at one start point and end at one end point: clock to D timing paths are the register-register timing paths, clock to output and input to D timing paths are IO timing paths, input to output timing paths are indesirable to have in designs. A critical path is that which decides or limits the clock frequency because it has the most delay incurred. If I reduce the delay in the critical path, I can increase the freq (fclk=1/Tclk, where Tclk>= Tcq+Tcomb+Tsetup). It is Tclk that decides Tcomb and not vice versa. That is why we need the constraints, 
+
+- 1-) I set the clock period and my synthesis tool will work to optimize the register-register time paths (by choosing what cells to connect in combinational logic part) to meet that constraint (Tcq and Tsetup are picked up from .lib) => register-register timing paths are constraints by clock.
+- 2-) I need to contstraint the input delay in order to have synchronous paths (from external registers to internal registers) working on the same clock => input-register timing paths are constrained by the input external delay and clock.
+- 3-) I have to constraint the output delay as to have synchronous paths (from internal registers to external registers) working on the same clock => register-output timing paths are constrained by the output external delay and clock. Note that register-output and input-register timing paths are collectively the IO timing paths (delay associated to them is called IO delay modeling). IO pathes also need to be constrained for max delay (setup) and min delay (hold).
+
+From input side perspective: Tclk=Tinp-ext+Tint where Tint=Tinputlogic+Tsetup, here external delay is accounted for, but the input signals are not ideal, the transitions (non-zero rise time) will lead Tinputlogic to increase hence violating the setup time => need to model those input transitions by adding constraints => Input-register time paths are constrained by input external delay, clock, and input transitions.
+	
+From output side perspective: Tclk=Tint+Topext where Tint=Tcq+Toplogic and Topext includes Tsetup, here external delay accounted for, but output load is not and this might lead to setup violations => need to model output load (from specs) by adding constraints. Register-input time paths are constrained by output external delay, clock, and output load.
+	
+Rule of thumb: The Tclk is 70% for external delay and 30% internal delay. The synthesis tools infer the cell delay numbers from the .lib file.
+	
+Some .lib file terminologies: 
+	
+- 1-) max capacitance limit: determines the maximum loading capacitance, beyond which the tool should break out the circuit and add buffers.
+	
+- 2-) delay model lookup table: delay = f(input transition+output load), so for every cell there is a table that has the delay values corresponding to a pair of input transition value (index_2) and output load value (index_1). Numbers not in table are interpolated.
+	
+- 3-) _and2_2 is wider, faster and has more area than _and2_0
+		
+- 4-) unateness: positive unateness is when the input rises (one pin), the output either does not change or it also rises (true for AND, OR). Negative unateness is when the input rises (one pin), the output either does not change or it falls (true for NOT, NAND, NOR). XOR is non-unate as input rise in one pin can cause either rise or fall in output. In D fliflop, with respect to clock, Q has no unateness, but with respect to  => This information is used by the tool to propagate the signal. 
+	
+- 5-) timing_type: combinational or falling_edge/rising_edge conveys combinatioal or sequential logic respectively. setup_falling and setup_rising indicate that the setup time is measured at the falling and rising edge respectively. 
+	
+	
+</details>
+	
+<details>
+ <summary> Useful dc shell commands </summary>	
+	
+In order to show the library name, the file name, and the path, use the following command:
+	
+```bash
+list_lib
+```	
+	
+In order to list the library cells of name containing "and" (this includes nand) one by one, use the following commands:
+	
+```bash
+foreach_in_collection <looping variable: my_lib_cell> [get_lib_cells */*and] {
+set <another variable: my_lib_cell_name [get_object_name $my_lib_cell];
+echo $my_lib_cell_name; 
+}
+```
+
+In order to view pins of a library, display direction (this is the attribute we are querying, when =2 it means pin is output) of all pins we use the following commands:
+	
+```bash
+get_lib_pins <path/librarycellnamefromprevcommand/*> 
+foreach_in_collection <variable name: my_pins> [get_lib_pins <path/librarycellnamefromprevcommand/*>] {
+set <another variable: my_pin_name [get_object_name $my_pins];
+set <another variable: pin_dir> [get_lib_attribute $my_pin_name <attribute name:direction>];
+echo $my_pin_name $pin_dir;
+}
+```
+	
+In order to select a pin (output) and view its functionality and area, then view the capacitance of a certain pin, check whether it is a clock pin or not, use the following commands:
+
+```bash
+get_lib_attribute <nameoflibpinfromprevcommands> function
+get_lib_attribute <nameofcellfromprevcommands> area
+get_lib_attribute <nameoflibpinfromprevcommands> capacitance
+get_lib_attribute <nameoflibpinfromprevcommands> clock
+```
+
+In order to find output pin and its functionality for each cell in a list, write a script (my_script.tcl, shown below), then source it:
+	
+```bash
+set <variable name: my_list> [list <path/librarycellnamefromprevcommand \
+path/librarycellnamefromprevcommand\
+path/librarycellnamefromprevcommand ]
+foreach <variable name: my_cell> $my_list {
+	foreach_in_collection <variable name: my_lib_pin> [get_lib_pins $(my_cell)/*] {
+		set <variable name: my_lib_pin_name> [get_object_name $my_lib_pin];
+		set <variable name: a> [get_lib_attribute $my_lib_pin_name direction];
+		if { $a > 1 } {
+			set <variable name: fn> [get_lib_attribute $my_lib_pin_name function];
+			echo $my_lib_pin_name $a $fn;
+		}
+	}
+```
+
+In order to find out all cells in library that are sequential, use the following command:
+
+```bash
+get_lib_cells */* -filter "is_sequential == true"
+```
+
+In order to write all available attributes that can be used to do queries to a file, use the following command:
+	
+```bash
+list_attributes -app > <name: a>
+```
+	
+</details>
+	
