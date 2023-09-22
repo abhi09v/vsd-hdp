@@ -1778,7 +1778,7 @@ To run this script in OpenSTA, I used the following command:
 sta pipe_mem.tcl
 ```
 	
-Screenshots of the .rpt report can be found below, as we can see the tool optimized the logic and the slack is met (4.4234):
+Screenshots of the .rpt report can be found below, as we can see the tool optimized the logic and the slack is met (2.3128):
 
 ![Screenshot from 2023-09-22 19-24-56](https://github.com/abhi09v/vsd-hdp/assets/120673607/35fb5e4c-934c-46a6-b277-b135615bfb82)
 
