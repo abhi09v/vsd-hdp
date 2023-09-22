@@ -1744,3 +1744,99 @@ Below is the reported timing from the both approaches (one screenshot because bo
 
 	
 </details>
+
+## Day 9
+	
+<details>
+ <summary> Summary </summary>
+	
+I added constraints to my design (the updown counter), and I used OpenSTA to perform analysis with constraints and produce the timing reports. I defined the constraints in "mariam_updown_counter.sdc" file and I defined the OpenSTA commands in "my_script.tcl" file.
+	
+</details>
+	
+<details>
+ <summary> Adding constraits: mariam_updown_counter.sdc </summary>
+	
+I defined the consraints in the .sdc file as below:
+	
+```bash
+create_clock -name MYCLK -per 10 [get_ports clk];
+set_clock_latency -source 2 [get_clocks MYCLK];
+set_clock_latency 1 [get_clocks MYCLK];
+set_clock_uncertainty -setup 0.5 [get_clocks MYCLK];
+set_clock_uncertainty -hold 0.1 [get_clocks MYCLK];
+set_input_delay -max 4 -clock [get_clocks MYCLK] [get_ports up_down];
+set_input_delay -min 1 -clock [get_clocks MYCLK] [get_ports up_down];
+set_input_transition -max 0.5 [get_ports up_down];
+set_input_transition -min 0.1 [get_ports up_down];
+set_load -max 0.13 [get_ports counter];
+set_load -min 0.1 [get_ports counter];
+```
+	
+</details>
+	
+<details>
+ <summary> Using OpenSTA: my_script.tcl </summary>
+	
+The .tcl file is defined as below:
+	
+```bash
+read_liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+read_verilog mariam_updown_counter_net.v
+link_design mariam_updown_counter
+read_sdc mariam_updown_counter.sdc
+report_checks -fields {nets cap slew input_pins} -digits {4} > mariam_report.rpt
+```
+	
+To run this script in OpenSTA, I used the following command:
+	
+```bash
+sta my_script.tcl
+```
+	
+Screenshots of the .rpt report can be found below, as we can see the tool optimized the logic and the slack is met (4.4234):
+
+<img width="624" alt="Screen Shot 2023-05-20 at 9 45 42 PM" src="https://github.com/mariamrakka/vsd-hdp/assets/49097440/44b4571b-c0e1-426a-bfa5-eed18e5ad4b4">
+	
+<img width="631" alt="Screen Shot 2023-05-20 at 9 46 37 PM" src="https://github.com/mariamrakka/vsd-hdp/assets/49097440/647968f6-2821-4267-96fa-5b0167523d07">
+
+
+</details>
+
+## Day 9
+	
+<details>
+ <summary> Summary </summary>
+	
+I added constraints to my design (5 stsge pipepline bank , and I used OpenSTA to perform analysis with constraints and produce the timing reports. I defined the constraints in "pipe_mem.sdc" file and I defined the OpenSTA commands in "pipe_mem.tcl" file.
+	
+</details>
+	
+<details>
+ <summary> Adding constraits: pipe_mem.sdc </summary>
+	
+I defined the consraints in the .sdc file as below:
+	
+![Screenshot from 2023-09-22 19-33-44](https://github.com/abhi09v/vsd-hdp/assets/120673607/954a2f13-1fb2-47ea-a7d2-33ad5638a2bf)
+	
+</details>
+	
+<details>
+ <summary> Using OpenSTA: pipe_mem.tcl </summary>
+	
+The .tcl file is defined as below:
+	
+![Screenshot from 2023-09-22 20-45-43](https://github.com/abhi09v/vsd-hdp/assets/120673607/64ea396e-89de-49d8-9c6c-b12fb2fc8f36)
+	
+To run this script in OpenSTA, I used the following command:
+	
+```bash
+sta pipe_mem.tcl
+```
+	
+Screenshots of the .rpt report can be found below, as we can see the tool optimized the logic and the slack is met (4.4234):
+
+![Screenshot from 2023-09-22 19-24-56](https://github.com/abhi09v/vsd-hdp/assets/120673607/35fb5e4c-934c-46a6-b277-b135615bfb82)
+
+
+</details>
