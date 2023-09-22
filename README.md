@@ -1634,7 +1634,7 @@ create_clock -name <clock name: MYCLK> -per <period: 10> [get_ports <name: clk>]
 	
 The design of the circuit after creating the master clock (which will propagate to all clock pins because it is created at clk pin which is connected to all clock pins in the circuit) is shown below:
 	
-<img width="1159" alt="sta_design" src="https://github.com/mariamrakka/vsd-hdp/assets/49097440/06456eeb-8b39-4717-a084-5b550e8e7879">
+![image](https://github.com/abhi09v/vsd-hdp/assets/120673607/1e18af5a-1e5f-4d94-a983-1bdf78155902)
 	
 To remove the already created clock then create another clock with a modified waveform, then view it, use the following command:
 	
@@ -1684,11 +1684,13 @@ report_port -verbose;
 	
 Below is the timing report reported from IN_A (slack is 4.08 now):
 	
-<img width="537" alt="timing_report_ina" src="https://github.com/mariamrakka/vsd-hdp/assets/49097440/b8e67ecb-e2fa-45ad-a7db-66ef90caeae3">
+![image](https://github.com/abhi09v/vsd-hdp/assets/120673607/e5a95864-e12e-450e-817e-11f932cb85a9)
 
 Below is the timing report reported from OUT_Y (slack is 1.88 now):
 
-<img width="538" alt="timing_report_out" src="https://github.com/mariamrakka/vsd-hdp/assets/49097440/70d7f19d-2ae8-4961-b240-09c4ce4862b4">
+![image](https://github.com/abhi09v/vsd-hdp/assets/120673607/c8fd8af3-7d1f-4205-b89c-178632c2e335)
+
+
 	
 A generated clock is used to later on model the propagation delay (flight delay) of the clock seen at the output port. To create a generated clock and constraint the above design taking into consideration the generated clock (modeling the propagation delay), use the following commands:
 	
@@ -1702,33 +1704,12 @@ report_timing -to <destination pin name: OUT_Y>;
 	
 Below is a screenshot of the reported timing:
 	
-<img width="536" alt="timing_report_generated" src="https://github.com/mariamrakka/vsd-hdp/assets/49097440/905f5449-7f15-4268-8d4b-cff59c14def1">
+![image](https://github.com/abhi09v/vsd-hdp/assets/120673607/b898ea0e-26a4-450b-b251-4fcc4604513a)
 	
-The below screenshot summarizes important notes about input delay:
-	
-![input_delay_notes](https://github.com/mariamrakka/vsd-hdp/assets/49097440/c74f0f4d-5891-4583-8006-797a4094c910)
 
-The below screenshot summarizes important notes about output delay:	
-	
-<img width="1341" alt="output_delay_notes" src="https://github.com/mariamrakka/vsd-hdp/assets/49097440/89814e5c-3345-43b6-9bd9-02a84cd0ac0c">
 
-If we have two outputs, we can either use the commands in the below first screenshot or those in the below second screenshot to constraint the lower path:
-	
-<img width="1376" alt="io_constraingts_revisited" src="https://github.com/mariamrakka/vsd-hdp/assets/49097440/4a362c0c-0886-4c1f-8a9f-9ee00e1d5f86">
 
-<img width="1512" alt="io_constraints_revisited__part2" src="https://github.com/mariamrakka/vsd-hdp/assets/49097440/9c139bbc-83be-4245-b717-cbfb2fb39702">
-	
-Below are two interesting cases where we need to add constraints from blocks (with negative edge clock) outside our module, and the corresponding commands to add those constraints are shown:
-	
-<img width="1484" alt="io_constraints_part3" src="https://github.com/mariamrakka/vsd-hdp/assets/49097440/cebc4257-c163-4574-8650-3f6943d9ff8a">
 
-<img width="1401" alt="io_constraints_part4" src="https://github.com/mariamrakka/vsd-hdp/assets/49097440/e49de88f-3fd7-44f9-a07e-370567a80c99">
-
-Below is a case where we need to use a set_driving_cell constraint, which is useful and accurate to model transition of pins between modules:
-	
-<img width="1503" alt="set_driving_cell" src="https://github.com/mariamrakka/vsd-hdp/assets/49097440/01430c96-44dd-4f27-af67-1bce7c4089d4">
-
-	
 </details>
 	
 <details>
@@ -1736,7 +1717,7 @@ Below is a case where we need to use a set_driving_cell constraint, which is use
 	
 The design of this circuit is similar to that of lab18_circuit.v, but has additional inputs, gate and output in the module as shown below:
 	
-<img width="1221" alt="design_lab14" src="https://github.com/mariamrakka/vsd-hdp/assets/49097440/0f016ae1-b3b1-45be-869a-e817045422eb">
+![image](https://github.com/abhi09v/vsd-hdp/assets/120673607/ea5f1094-4bd5-4219-a3b3-4c22eefb6611)
 
 	
 We constraint the model above by using all constraints we discussed in lab8_circuit.v and in addition we add either the constraints in the first set of commands below then recompile to get an optimization as our constraint added will lead to a violation (because previous compilation did not take into account this newly added path) that will be fixed post compilation, or we add the constraints that follow in second set of commands which use a virtual clock (either ways work, but note that virtual clock does not need a source name and we need to be careful to have the latency in between equivalent to 0.1ns, and we have that as out of 10ns from virtual clock, 5ns is to input delay and 4.9ns is to output delay hence what is left is 0.1ns for the logic so this is correct):
@@ -1758,7 +1739,8 @@ report_timing -to <name: OUT_Z>;
 	
 Below is the reported timing from the both approaches (one screenshot because both apply same constraints and optimizations and hence we get same timing report):
 	
-<img width="423" alt="constraints_lab14" src="https://github.com/mariamrakka/vsd-hdp/assets/49097440/a99c6fe5-900d-4a3b-baeb-ea07b68c3181">
+
+![image](https://github.com/abhi09v/vsd-hdp/assets/120673607/dd5a10bd-547d-490e-a614-202c2d5621db)
 
 	
 </details>
