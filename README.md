@@ -1892,9 +1892,9 @@ The VTC of a CMOS (Vout vs Vin) is derived by first converting IdN vs VdsN and I
 	
 </details>
 	
-
  <summary> Ngspice simulation: day2_nfet_idvds_L015_W039.spice  </summary>
-	
+
+<details>  
 To use ngspice for plotting, use the following commands:
 	
 ```bash
@@ -2012,7 +2012,7 @@ Below is the screenshot of the obtained result of the transient analysis, where 
 	
 </details>
 	
-
+<details>
 	
 <summary> Ngspice simulation: day4_inv_noisemargin_wp1_wn036.spice  </summary>
 	
