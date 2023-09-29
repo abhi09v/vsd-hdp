@@ -1780,7 +1780,321 @@ sta pipe_mem.tcl
 	
 Screenshots of the .rpt report can be found below, as we can see the tool optimized the logic and the slack is met (2.3128):
 
-![Screenshot from 2023-09-22 19-24-56](https://github.com/abhi09v/vsd-hdp/assets/120673607/35fb5e4c-934c-46a6-b277-b135615bfb82)
+![image](https://github.com/abhi09v/vsd-hdp/assets/120673607/4a54df52-c237-4cc0-a12f-4cc874c51712)
+![Screenshot from 2023-09-29 20-52-23](https://github.com/abhi09v/vsd-hdp/assets/120673607/d6ba555d-9a5a-41ee-8996-55c51995d92c)
+
+</details>
+
+## Day 10
+	
+<details>
+ <summary> Summary </summary>
+	
+- Learnt about circuit design and spice simulations. In circuit design we see how connecting transistors and other components in a certain way would result in a certain functionality. Spice simulations are used to verify that a circuit is functioning as expected, to generate delays of a cell (source of delay tables).
+	
+- learnt about the NMOS transistors and their characteristics. NMOS is an n-channel (on p-substrate), has 4 terminals, has 2 isolation regions, has 2 n+ diffusion regions, has a gate oxide, has a poly-Si (metal gate) which is placed on top of gate oxide, and has 4 terminals (bulk, source, drain, gate). PMOS is just an inverted NMOS (p+ on n-substrate) but all other characteristics are common. The threshold voltage accurate describes the transistor.
+- For an NMOS, if Vgs=0, and we drain drain, source and bulk, we get 2 back to back p-n junction diodes. Now if we apply a potential Vgs, a negatively charged region (depletion region) forms between n+ regions. Now if we keep increasing Vgs until Vgs=threshold voltage=Vto (Vsb=0 here, and Vto is a function of process manufacturing), we get strong surface inversion.
+- If we keep increasing Vgs now, a continuous channel is created between n+ (gate attracts negative n+ as no p+ are left to repel, they are all depleted) -> cutoff region. If Vsb is positive (with D grounded and Vgs small voltage to form depletion region), the depletion layer width increases near S), now as Vgs increases in this case, depletion layer width increases, but in this case (unlock above case where Vsb=0) the negative charges formed due to depletion are attracted towards the S terminal which is connected to positive node of voltage source, this needs additional potential to achieve strong surface inversion whereby it happens for Vgs=Vto+V1 (V1=lembda*sqrt(abs(-2Phi+Vsb))-sqrt(abs(-2Phi)) and lambda=sqrt(2*q*N*A*Epsilon_Si)/Cox).
+	
+
+-If Vgs increased beyond strong inversion (beyond Vt) and apply drain voltage then the voltage across channel is not constant anymore, and V(x) is the voltage at point x along the channel, and Vgs-V(x) is the gate-to-channel voltage at that point. The charges induced in the channel is proportional to Vgs-V(x)-Vt, in particular, Q(x)= -Cox ((Vgs-V(x))-Vt) where Cox=Epsilon_ox/tox where tox is oxide thickness. From device point of view there are drift (due to potential difference) and diffusion currents (due to difference in carrier concentration). Here focus is on the drift current, Id, (velocity of charge) that is flowing over the channel width. Id= -Vn(x)*Q(x)*Width where velocity Vn(x)=mobility*electric=Mu_N*dV/dx, so sunstituting and integrating dx over channel length will give the V-I relationship of NMOS => Id= Mu_N*Cox *W/L *[(Vgs-Vt)*Vds-Vds^2/2], we call Mu_N*Cox=Kn' or process conductance and kn'*(W/L)=Kn is the gain factor. -> Linear region (for Vds <= Vgs - Vt), Id=Kn(Vgs-Vt)Vds.
+
+- If Vds = Vgs-Vt, pinch-off phenomena starts, and the channel begins to disappear (voltage across channel remains ~ constant at Vgs-Vt). When Vds>Vgs-Vt, the channel pinches off, and current saturates. -> Saturation region (for Vds > Vgs-vt), Id=kn/2(Vgs-vt)^2. The change in channel can be modeled accurately by including lambda (channel length modulation) in the equation: Id=kn/2(Vgs-vt)^2*(1+lambda*Vds). 
+	
+A correct spice setup includes the model files (technology model files representing the MOSFETs through parameters and equations) and spice netlist (describes the circuit we are trying to simulate in a specific syntax)
+	
+</details>
+
+	
+<details>
+
+ <summary> Important spice syntax </summary>
+	
+Before writing a netlist, we need to define names for the nodes in the circuit.
+![library](https://github.com/abhi09v/vsd-hdp/assets/120673607/bc564bb3-47d5-4c8f-a00f-1c194956aa7b)	
+To include a technology file then define a resistor, transistor, voltage source, and a capacitor use the syntax below:
+	
+```bash
+.LIB "<name: xxx>.mod" CMOS_MODELS
+R<name> <1st node> <second node> <value>
+M<name> <drain> <gate> <source> <bulk> <name in tech file> w=<value> L=<value>
+V<name> <1st node> <second node> <value>
+C<name> <1st node> <second node> <value>
+```
+![corner](https://github.com/abhi09v/vsd-hdp/assets/120673607/f7a6fe73-91f8-4301-8299-1f5ecefea18f)
+
+![model_parameter](https://github.com/abhi09v/vsd-hdp/assets/120673607/48738640-888d-452f-8e8a-4acc70f64ddc)	
+Technology file (xxx.mod) of NMOS and PMOS should have the following syntax:
+	
+```bash
+.lib cmos_models
+.Model <name that should match in netlist> NMOS (TOX = .. VTH0 = .. U0 = .. GAMMA1 = ..)
+.Model <name that should match in netlist> PMOS (TOX = .. VTH0 = .. U0 = .. GAMMA1 = ..)
+.endl
+```
+![nmos_spice](https://github.com/abhi09v/vsd-hdp/assets/120673607/2c9a3a68-993a-4910-8783-8f03c36c5cdb)	
+![rename_all](https://github.com/abhi09v/vsd-hdp/assets/120673607/03f93b56-1432-4815-acbb-2b60410f4fd3)
+
+To simulate a spice netlist with sweeping (left side will be sweeped for each value on the right side), use the following syntax in the netlist:
+	
+```bash
+.<mode: dc> <voltage node to sweep: Vin> <start value: 0> <end value: 2.5> <steps: 0.1> <voltage node to sweep: Vdd> <start value: 0> <end value: 2.5> <steps: 2.5> 
+```
+
+To use ngspice for plotting, use the following commands:
+	
+```bash
+ngspice <spice file name>
+plot -<name node>
+```
+	
+</details>
+
+<details>
+
+ <summary> Ngspice simulation: day1_nfet_idvds_L2_W5.spice  </summary>
+	
+To use ngspice for plotting, use the following commands:
+	
+```bash
+ngspice <name: day1_nfet_idvds_L2_W5.spice>
+plot -<name: vdd#branch>
+```
+	
+Below is the screenshot of the obtained result of Id vs Vds for different Vgs. We can see that as Vds increases, Id goes from cutoff to linear region to saturation region:
+	
+![Screenshot from 2023-09-29 21-10-21](https://github.com/abhi09v/vsd-hdp/assets/120673607/8953d81c-9aa1-42f9-b437-c970d4ce1e90)
+
+</details>
+
+## Day 11
+	
+<details>
+
+ <summary> Summary </summary>
+	
+- learned about velocity saturation and the basics of CMOS inverter Voltage Transfer Characteristics (VTC). If we inspect the I-V charachteristic of an NMOS, when Vgs>=Vt, then we see two regions, one with linear increase of current when Vds<=Vgs-vt and one with saturated current when Vds>Vgs-Vt. When W/L is constant but W and L (from long channel to short channel device) have decreased in value, we stop seeing quadratic dependance of Ids on Vgs after a certain Vgs value, and we see linear dependance, and also peak current decreases from long channel case due to velocity saturation effect.
+- At higher electric fields, velocity becomes constant (after it was linear for lower fields) due to scattering effects. Velocity Vn(x)= Mu_n*epsilon/(1 + epsilon/epsilon_c) for epsilon <= epsilon_c and Vn(x)=Vsat for epsilon >= epsilon_c. We note that long channel (L>250nm) has 3 modes of operation: cutoff, resistive, and saturation, while short channel (L<250nm) has 4 modes of operation: cutoff, resistive, velocity saturation, and saturation.
+- For short channel case: Id=0 for Vgs<Vt (cutoff) and otherwise, Id=Kn*[((Vgs-Vt)*Vmin)-Vmin^2/2]*[1+lambda*Vds] where Vmin=min(Vgs-Vt, Vds, Vdsat) according to region of operation (Vdsat is the voltage at which device velocity saturates and is independent of Vgs or Vds, and it is a technology operation). 
+	
+- A CMOS acts like a switch, open when |Vgs|<|Vt| and closed (with finite ON resistance) when |Vgs|>|Vt|. When Vin=Vdd, the pmos is off, nmos is on, and Vout is 0 (open switch). When Vin is 0, PMOS is on and NMOS is off and Vout is Vdd (closed switch). In either case, there is a resistance with the switch which represents the equivalent resistance of the nmos (Rn) and pmos (Rp) respectively as shown in the picture below.
+	
+
+![image](https://github.com/abhi09v/vsd-hdp/assets/120673607/c6a5790b-f107-4409-9fe9-6d09b079ed08)
+	
+The VTC of a CMOS (Vout vs Vin) is derived by first converting IdN vs VdsN and IdP (IdP=-IdN) vs VdsP to IdN vs Vout for different Vin (load curve for PMOS) as shown in first picture, then getting similarly IdN vs Vout for different Vin (load curve for NMOS) as shown in second picture. Finally, for we superimpose load of NMOS on PMOS, and for intersection points between common Vin values gives us the common Vout value in the VTC. VTC has 5 regions: 1-) PMOS linear, NMOS off, 2-) PMOS linear, NMOS saturation, 3-) PMOS and NMOS in saturation, 4-) PMOS saturation, NMOS linear, and 5-) PMOS off, NMOS linear as shown in third picture (1, 3, and 5 regions are of importance).  	
+	
+![image](https://github.com/abhi09v/vsd-hdp/assets/120673607/cceb0db8-b986-408e-916d-8d93df036590)
+![image](https://github.com/abhi09v/vsd-hdp/assets/120673607/c43d66b6-f61f-4d57-9852-2414afe704ef)
+![image](https://github.com/abhi09v/vsd-hdp/assets/120673607/e4c2f17a-73d1-47ed-9c9a-688356047082)
+	
+
+	
+</details>
+	
+
+ <summary> Ngspice simulation: day2_nfet_idvds_L015_W039.spice  </summary>
+	
+To use ngspice for plotting, use the following commands:
+	
+```bash
+ngspice <name: day2_nfet_idvds_L015_W039.spice>
+plot -<name: vdd#branch>
+```
+	
+Below is the screenshot of the obtained result of Id vs Vds for different Vgs. We can see that for low value of Vgs, Id shows quadratic behavior and for high Vgs, Id shows linear behavior due to velocity saturation effect (we have short channel here):
+	
+![Screenshot from 2023-09-29 19-21-24](https://github.com/abhi09v/vsd-hdp/assets/120673607/8b9f0d76-c5f7-4d95-a3be-40e9375b79f0)
+
+
+</details>
+	
+<details>
+
+ <summary> Ngspice simulation: day2_nfet_idvgs_L015_W039.spice  </summary>
+	
+To use ngspice for plotting, use the following commands:
+	
+```bash
+ngspice <name: day2_nfet_idvgs_L015_W039.spice>
+plot -<name: vdd#branch>
+```
+	
+Below is the screenshot of the obtained result of Id vs Vgs for constant Vds. We can see that for low value of Vgs, Id shows quadratic behavior and for high Vgs, Id shows linear behavior due to velocity saturation effect (we have short channel here):
+	
+![Screenshot from 2023-09-29 19-29-41](https://github.com/abhi09v/vsd-hdp/assets/120673607/4d18c23f-f050-4bb3-8be1-e10ba5464356)
+
+	
+To calculate the thrshold voltage in ngspice, use the plot above and extend a line tangent to the linear line (the slope), until it meets the x-axis and that would be the value of the threshold voltage. 
+
+</details>
+	
+## Day 12
+	
+<details>
+
+ <summary> Summary </summary>
+	
+- Learned how to simulate a CMOS circuit using spice in order to obtain the VTC and evaluate the static behavior. Spice deck needed to write a netlist: component connectivity, component values, identify nodes and name them. The switching voltage Vm is that where Vin=Vout (nmos and pmos in saturation), and it defines the robustness of the CMOS.
+- It is derived by setting IdsP=-IdsN to get Vm=R*Vdd/(1+R) where R=(Kp*VdsatP)/(Kn*VdsatN) and where Kp=Wp/Lp*Kp' and Kn=Wn/Ln*Kn'. Given target Vm, we can derive from the previous equation the needed W/L ratios. 
+	
+</details>
+	
+
+<details>
+
+ <summary> Important spice syntax </summary>
+	
+To define a pulse, use the syntax as defined in the picture below:
+	
+![image](https://github.com/abhi09v/vsd-hdp/assets/120673607/93e21e6a-ffea-49dc-ae1c-c7cce3be534f)
+
+	
+</details>	
+	
+<details>
+
+ <summary> Ngspice simulation: day3_inv_vtc_Wp084_Wn036.spice  </summary>
+	
+To use ngspice for plotting, use the following commands:
+
+```bash
+ngspice <name: day3_inv_vtc_Wp084_Wn036.spice>
+plot <name: out> vs <name: in>
+```
+	
+Below is the screenshot of the obtained result of the VTC, where switching threshold is around 0.876v:
+	
+![Screenshot from 2023-09-29 19-29-41](https://github.com/abhi09v/vsd-hdp/assets/120673607/9362a33e-12c5-47a4-b7d8-6e2833f8601c)
+
+	
+</details>
+	
+	
+## Day 13
+	
+<details>
+
+ <summary> Summary </summary>
+	
+- Learned the effect of increasing the pmos width. When the pmos width is wider than that of nmos, the switching voltage of the VTC shifts to the right slightly (advantage). As width of pmos increases as an integer multiple of that of nmos (for same L), the rise delay and fall delay decreases rapidly (time to charge decreases as width is wider) and increases  respectively.
+-  For one some sizing (factor of 2), we observe an equal rise and fall times (symmetric property which is a typical characteristic of a clock inverter/buffer where resistance of pmos is approximately equal to resistance of nmos in that case due to the W/L ratios). Other sizing for inverters is used to get regular inverter/buffer that would be preferred in the data path. 
+	
+</details>
+	
+
+<details>
+	
+<summary> Ngspice simulation: day3_inv_tran_Wp084_Wn036.spice  </summary>
+	
+To use ngspice for plotting, use the following commands:
+
+```bash
+ngspice <name: day3_inv_tran_Wp084_Wn036.spice>
+plot <name: out> vs <name: time> <name: in>
+```
+	
+Below is the screenshot of the obtained result of the transient analysis, where rise delay and fall delay are around 0.322ns and 0.285ns at 0.9v (50%) respectively:
+	
+
+![Screenshot from 2023-09-29 19-31-03](https://github.com/abhi09v/vsd-hdp/assets/120673607/a37278c0-79f1-45b9-adcd-5cac11fa6799)
+
+</details>
+	
+## Day 14
+	
+<details>
+
+ <summary> Summary </summary>
+	
+I learned about noise margin, which is another characteristic that defines static behavior of the inverter (robustness). When Vin<=VIL (logic 0), Vout is expected to ber VOH, and when Vin>=VIH (logic 1), vout is expected to be VOL (note that the slope at VIL and VIH is -1). The noise margin is defined as VIH-VIL (undefined region: voltage ranges at which the logic does not differentiate between 0 and 1). Noise margin high (interpereted as logic 1) = VOH-VIH and noise margin low (interpreted as logic 0) = VIL-VOL. Ideally, we want a CMOS inverter to have a noise margin of 0. When the width of the pmos increases with respect to nmos width, noise margin high increases while noise margin low stays the same then drops as the pmos is responsible for the high value output. Digital design relies on the areas of noise margin high and noise margin low. 
+	
+</details>
+	
+
+	
+<summary> Ngspice simulation: day4_inv_noisemargin_wp1_wn036.spice  </summary>
+	
+To use ngspice for plotting, use the following commands:
+
+```bash
+ngspice <name: day4_inv_noisemargin_wp1_wn036.spice>
+plot <name: out> vs <name: in>
+```
+	
+Below is the screenshot of the obtained result of the VTC, and VIL is around 0.7v and VOH is around 1.7v. VOL is around 0.08v and VIH is around 1v (noise margin low is around 0.62v and noise margin high=0.7):
+
+<img width="636" alt="ngspice6" src="https://github.com/mariamrakka/vsd-hdp/assets/49097440/8a7f3f5e-10cf-49b9-a558-ac912c6f6d1c">
+
+</details>
+
+
+## Day 15
+	
+<details>
+
+ <summary> Summary </summary>
+	
+I learned about power supply scaling and device variation, where the effect of those on the CMOS is another characteristic that defines static behavior of the inverter (robustness). 
+	
+CMOS inverter can operate at supply voltage of even 0.5v and advantages are: at 0.5v, the gain (rate of change of output as input changes, change in output voltage dibided by change in input voltage at slopes of -1) is huge (close to 50% compared to 2.5v) and energy consumed is 1/2*CV^2 so less energy is consumed (close to 90% improvement compared to 2.5v). Disadvantage of using 0.5 power supply: very slow operation as fall time and rise time are huge -> huge impact on performance. 
+	
+Etching is the process of creating patterns on substrates, in which materials will be removed selectively from a thin film on a substrate. Variation in L and W takes place because of non-ideal mask, which in turn impacts the drain current. Variation in oxide thickness is due to non-idealities in the fabriaction process that leads to non-ideal oxidation process, which in process affacts the drain current. In a chain of inverters, sources of variation affect the inverters on sides more severely. To mimic device variations, Wn and Wp were varied from a strong pmos-weak nmos to a weak pmos-strong nmos, and from the VTCs we could see that there is a small shift in Vm, the switching voltgae, and small variations in the noise margins (high and low) -> the CMOS inverter is highly robust to device variation. 
+	
+</details>
+	
+<details>
+	
+ <summary> Codes </summary>
+	
+The used models of MOSFEts and netlists for simualtions are taken from https://github.com/kunalg123/sky130CircuitDesignWorkshop.git
+	
+</details>
+	
+<details>
+	
+<summary> Important spice syntax </summary>
+	
+To define a loop in order to scale the power supply, use the syntax as defined in the picture below:
+	
+
+<img width="766" alt="loop" src="https://github.com/mariamrakka/vsd-hdp/assets/49097440/2b0bc598-e128-41f4-a0af-89c6637f65bd">
+
+	
+</details>	
+	
+<details>
+	
+<summary> Ngspice simulation: day5_inv_supplyvariation_Wp1_Wn036.spice  </summary>
+	
+To use ngspice for plotting, use the following commands:
+
+```bash
+ngspice <name: day5_inv_supplyvariation_Wp1_Wn036.spice>
+```
+	
+Below is the screenshot of the obtained result of the VTC curves for different supply voltages, gain in curve corresponding to 1.8v is (1.706-0.076)/(1.008-0.772)=6.907. Gain in curve corresponding to 0.8v is (0.770-0.021)/(0.511-0.428)=9.024 (increases as supply voltage decreases, but then decreases again because supply would not be enough for the device to operate):
+
+<img width="689" alt="voltagesupply1" src="https://github.com/mariamrakka/vsd-hdp/assets/49097440/655d6e68-1198-4522-9aff-506ffa0f155f">
+
+<img width="448" alt="gains" src="https://github.com/mariamrakka/vsd-hdp/assets/49097440/2a57ef4a-6d37-4857-8ae7-3eee708d785a">
+
+</details>
+	
+<details>
+	
+<summary> Ngspice simulation: day5_inv_devicevariation_wp7_wn042.spice  </summary>
+	
+To use ngspice for plotting, use the following commands:
+
+```bash
+ngspice <name: day5_inv_devicevariation_wp7_wn042.spice>
+plot <name: out> vs <name: in>
+```
+	
+Below is the screenshot of the obtained result of the VTC curve, and since Wp is larger than Wn we can see that the output logic 1 is held for longer than output logic 0 (because of strong pfet and weak nfet), and subsequently the switching voltage shifts to the right (compared to Vdd/2, in an ideal CMOS) to a value of 0.987v which is very close to Vdd/2=0.9, so even with huge device variation, the CMOS device is pretty robust:
+
+<img width="645" alt="devicevariation" src="https://github.com/mariamrakka/vsd-hdp/assets/49097440/dcca50be-9b5d-4cba-8bdd-3c10428eb7b4">
 
 
 </details>
